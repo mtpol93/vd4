@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply custom fonts globally */
+@layer base {
+  /* All headings use Title font */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Title', sans-serif;
+  }
+  
+  /* All body text uses Body font */
+  body, p, span, div, button, input, textarea, label, a {
+    font-family: 'Body', sans-serif;
+  }
+}
+
+.font-title {
+  font-family: 'Title', sans-serif;
+}
+
+.font-body {
+  font-family: 'Body', sans-serif;
+}
+
+/* Mobile landscape optimization */
+@media screen and (max-width: 768px) {
+  html, body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #001f33 !important;
+  }
+  
+  /* Ensure proper background on mobile */
+  #root {
+    background-color: #001f33 !important;
+    min-height: 100vh !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+/* Prevent text selection and touch behaviors on mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Allow text selection only in input fields */
+  input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+}
+
+/* 4K Optimization */
+@media (min-width: 2560px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 3840px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+/* High DPI Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  * {
+    will-change: auto;
+  }
+
+  .transition-transform {
+    will-change: transform;
+  }
+
+  .transition-all {
+    will-change: transform, opacity;
+  }
+  
+  /* Reduce animations on mobile for better performance */
+  .hover\:scale-110:hover {
+    transform: scale(1.05);
+  }
+  
+  .hover\:scale-105:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Smooth scrolling for high resolution displays */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better text rendering for high DPI */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Body', sans-serif;
+}
+
+/* Custom scrollbar styles for popup windows */
+.popup-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.popup-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  display: block;
+}
+
+.popup-scrollbar::-webkit-scrollbar-track {
+  background: rgba(243, 244, 246, 0.5);
+  border-radius: 4px;
+}
+
+.popup-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.7);
+  border-radius: 4px;
+  border: 1px solid rgba(243, 244, 246, 0.5);
+}
+
+.popup-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.8);
+}
+
+/* Hide scrollbars for main application (except popup windows) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Override for popup windows to show scrollbars */
+.popup-scrollbar {
+  -ms-overflow-style: auto;
+  scrollbar-width: thin;
+}
+
+/* Fullscreen styles */
+.fullscreen-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Mobile-specific button adjustments */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px; /* iOS recommended touch target size */
+    min-width: 44px;
+  }
+  
+  /* Larger touch targets for mobile */
+  .mobile-touch-target {
+    padding: 12px;
+    margin: 4px;
+  }
+}
+
+/* Landscape-specific adjustments */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .mobile-landscape-optimized {
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Prevent zoom on inputs */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}

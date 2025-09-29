@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen" />
+    <meta name="theme-color" content="#001f33" />
+    <title>Vite + React + TS</title>
+    
+    <!-- WebGPU Feature Detection -->
+    <script>
+      // Check WebGPU support and log status
+      if ('gpu' in navigator) {
+        console.log('🚀 WebGPU is supported in this browser');
+        navigator.gpu.requestAdapter().then(adapter => {
+          if (adapter) {
+            console.log('✅ WebGPU adapter available:', adapter);
+          } else {
+            console.log('⚠️ WebGPU adapter not available, will fallback to WebGL');
+          }
+        }).catch(err => {
+          console.log('⚠️ WebGPU adapter request failed:', err);
+        });
+      } else {
+        console.log('❌ WebGPU not supported, using WebGL fallback');
+      }
+    </script>
+    
+    <style>
+      @font-face {
+        font-family: 'Title';
+        src: url('./fonts/font-title.otf') format('opentype');
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Body';
+        src: url('./fonts/font-body.ttf') format('truetype');
+        font-display: swap;
+      }
+
+      /* Force landscape orientation on mobile */
+      @media screen and (max-width: 768px) {
+        /* Remove forced rotation - let orientation warning handle it */
+      }
+
+      /* Fullscreen styles */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Prevent zoom on mobile */
+      * {
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Hide scrollbars */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Orientation warning overlay */
+      .orientation-warning {
+        display: none;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #001f33;
+        color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      @media screen and (max-width: 768px) and (orientation: portrait) {
+        .orientation-warning {
+          display: flex;
+        }
+      }
+
+      .rotate-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        animation: rotate 2s linear infinite;
+      }
+
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Orientation Warning -->
+    <div class="orientation-warning">
+      <div class="rotate-icon">📱</div>
+      <h2 style="font-family: 'Title', sans-serif; margin-bottom: 1rem;">Please Rotate Your Device</h2>
+      <p style="font-family: 'Body', sans-serif; font-size: 1.1rem; line-height: 1.5;">
+        For the best experience, please rotate your device to landscape mode.
+      </p>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="./src/main.tsx"></script>
+    
+    <script>
+      // Force fullscreen on mobile
+      function enterFullscreen() {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        }
+      }
+
+      // Auto-enter fullscreen on mobile devices
+      function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+
+      // Lock orientation to landscape on supported devices
+      function lockOrientation() {
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('landscape').catch(() => {
+            console.log('Orientation lock not supported');
+          });
+        } else if (screen.lockOrientation) {
+          screen.lockOrientation('landscape');
+        } else if (screen.webkitLockOrientation) {
+          screen.webkitLockOrientation('landscape');
+        } else if (screen.mozLockOrientation) {
+          screen.mozLockOrientation('landscape');
+        }
+      }
+
+      // Initialize mobile optimizations
+      if (isMobile()) {
+        // Try to enter fullscreen after user interaction
+        document.addEventListener('touchstart', function() {
+          enterFullscreen();
+          lockOrientation();
+        }, { once: true });
+
+        // Also try on click
+        document.addEventListener('click', function() {
+          enterFullscreen();
+          lockOrientation();
+        }, { once: true });
+
+        // Prevent default touch behaviors
+        document.addEventListener('touchmove', function(e) {
+          e.preventDefault();
+        }, { passive: false });
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+        });
+
+        // Prevent double-tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+          const now = (new Date()).getTime();
+          if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+          }
+          lastTouchEnd = now;
+        }, false);
+      }
+
+      // Handle orientation changes
+      window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+          if (isMobile()) {
+            lockOrientation();
+          }
+        }, 500);
+      });
+
+      // Prevent zoom with keyboard shortcuts
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '0')) {
+          e.preventDefault();
+        }
+      });
+
+      // Prevent zoom with wheel
+      document.addEventListener('wheel', function(e) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+    </script>
+  </body>
+</html>

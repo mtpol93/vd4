@@ -1,0 +1,6 @@
+This is a placeholder for the Agentic overview image. 
+
+Since I cannot create binary image files, you'll need to manually add the overview image for Agentic at:
+/public/products/ai-core/products/Agentic/0-overview/overview.jpg
+
+The ProductModal component will automatically detect and use this image when it exists.
