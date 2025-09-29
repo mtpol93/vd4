@@ -1,6 +1,7 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { RotateCcw, Wind, Mail, X } from 'lucide-react';
+import { contentConfig, getProductFamilyInfo } from './config/content';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Showroom } from './components/Showroom';
 import { ProductModal } from './components/ProductModal';
@@ -16,38 +17,38 @@ interface CameraPosition {
 const productFamilies = [
   {
     id: 'akkodis-main',
-    name: 'Akkodis Main',
+    name: getProductFamilyInfo('akkodis-main').name,
     image: './images/Logo-White-Akkodis.png',
-    description: 'Thank you for having interest in our products! You can contact us via:\nQR code\nemail address',
-    mainProduct: { name: 'Akkodis Main', image: './images/Logo-White-Akkodis.png' }
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('akkodis-main').name, image: './images/Logo-White-Akkodis.png' }
   },
   {
     id: 'ai-core',
-    name: 'AI-Core Platform',
+    name: getProductFamilyInfo('ai-core').name,
     image: './products/ai-core/AI-Core Platform copy copy.png',
-    description: 'Thank you for having interest in our products! You can contact us via:\nQR code\nemail address',
-    mainProduct: { name: 'AI-Core Platform', image: './products/ai-core/AI-Core Platform copy copy.png' }
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('ai-core').name, image: './products/ai-core/AI-Core Platform copy copy.png' }
   },
   {
     id: 'netcomm',
-    name: 'NetComm Validation',
+    name: getProductFamilyInfo('netcomm').name,
     image: './products/netcomm/netcomm-validation copy.png',
-    description: 'Thank you for having interest in our products! You can contact us via:\nQR code\nemail address',
-    mainProduct: { name: 'NetComm Validation', image: './products/netcomm/netcomm-validation copy.png' }
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('netcomm').name, image: './products/netcomm/netcomm-validation copy.png' }
   },
   {
     id: 'provetech',
-    name: 'PROVEtech Tool Suite',
+    name: getProductFamilyInfo('provetech').name,
     image: './products/provetech/PROVEtech.png',
-    description: 'Thank you for having interest in our products! You can contact us via:\nQR code\nemail address',
-    mainProduct: { name: 'PROVEtech Tool Suite', image: './products/provetech/PROVEtech.png' }
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('provetech').name, image: './products/provetech/PROVEtech.png' }
   },
   {
     id: 'energy-solutions',
-    name: 'Energy Solutions',
+    name: getProductFamilyInfo('energy-solutions').name,
     image: './products/energy-solutions/Energy-Solutions.png',
-    description: 'Thank you for having interest in our products! You can contact us via:\nQR code\nemail address',
-    mainProduct: { name: 'Energy Solutions', image: './products/energy-solutions/Energy-Solutions.png' }
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('energy-solutions').name, image: './products/energy-solutions/Energy-Solutions.png' }
   }
 ];
 
@@ -83,27 +84,27 @@ const cameraPositions: Record<string, CameraPosition> = {
 // Camera positions for individual products
 const productCameraPositions: Record<string, CameraPosition> = {
   // Main products for each family
-  'Akkodis Main': {
+  [getProductFamilyInfo('akkodis-main').name]: {
     position: [6.17, 2.52, 9.37],
     rotation: [-2.377, -0.741, -2.567],
     target: [9.5, 0, 12]
   },
-  'AI-Core Platform': {
+  [getProductFamilyInfo('ai-core').name]: {
     position: [-4.49, 2, 4.78],
     rotation: [0.000, 1.261, 0.000],
     target: [-8.5, 2, 3.5]
   },
-  'NetComm Validation': {
+  [getProductFamilyInfo('netcomm').name]: {
     position: [-4.03, 1.47, -2.49],
     rotation: [-0.063, -0.136, -0.009],
     target: [-3, 1, -10]
   },
-  'PROVEtech Tool Suite': {
+  [getProductFamilyInfo('provetech').name]: {
     position: [-1, 6, 4],
     rotation: [0, 0, 0],
     target: [0, 3.5, 0]
   },
-  'Energy Solutions': {
+  [getProductFamilyInfo('energy-solutions').name]: {
     position: [-3.25, 1.46, -3.02],
     rotation: [-0.390, -0.116, -0.048],
     target: [-2.5, -1, -9]
@@ -588,7 +589,7 @@ function App() {
                 <p className="text-sm text-gray-300">Product Family</p>
               </div>
               <div className="text-white text-sm leading-relaxed mb-4">
-                <p className="mb-3">Thank you for having interest in our products! You can contact us via:</p>
+                <p className="mb-3">{contentConfig.general.contactMessage}</p>
                 <div className="flex flex-col items-center space-y-3">
                   <img
                     src="./images/qrcode.png"
@@ -598,8 +599,8 @@ function App() {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
                     }}
-                  />
-                  <p className="text-center">or email us at <span style={{ color: '#ffb81c' }}>marketing-products@akkodis.com</span></p>
+                    or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
+                  <p className="text-center">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span></p>
                 </div>
               </div>
               <div className="text-center">

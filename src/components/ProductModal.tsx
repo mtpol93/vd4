@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, FileText, Image as ImageIcon, Video, Presentation, Maximize2, Play } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { 
+  contentConfig, 
+  getProductFamilyInfo, 
+  getImageContent, 
+  getVideoContent, 
+  getPresentationDescription, 
+  getDocumentDescription 
+} from '../config/content';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
@@ -164,35 +172,11 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   };
 
   // Custom titles for images and videos
-  const getCustomTitle = (fileName: string, index: number, type: 'image' | 'video'): string => {
-    const imageTitles = [
-      'Lorem Ipsum Dashboard Overview',
-      'Consectetur Adipiscing Interface',
-      'Sed Do Eiusmod Analytics',
-      'Tempor Incididunt Workflow',
-      'Labore Et Dolore Configuration',
-      'Magna Aliqua Performance',
-      'Ut Enim Ad Integration',
-      'Minim Veniam Architecture',
-      'Quis Nostrud Security',
-      'Exercitation Ullamco Features',
-      'Laboris Nisi Deployment',
-      'Aliquip Ex Ea Monitoring',
-      'Commodo Consequat Results'
-    ];
-    
-    const videoTitles = [
-      'Lorem Ipsum Product Demo',
-      'Consectetur Adipiscing Tutorial',
-      'Sed Do Eiusmod Walkthrough',
-      'Tempor Incididunt Overview',
-      'Labore Et Dolore Training'
-    ];
-    
+  const getCustomContent = (index: number, type: 'image' | 'video') => {
     if (type === 'image') {
-      return imageTitles[index % imageTitles.length];
+      return getImageContent(index);
     } else {
-      return videoTitles[index % videoTitles.length];
+      return getVideoContent(index);
     }
   };
 
@@ -237,8 +221,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const familyImages = imageFiles[productFamily];
   if (familyImages && familyImages[productName]) {
     familyImages[productName].forEach((file, index) => {
+      const imageContent = getCustomContent(index, 'image');
       content.images.push({
-        name: getCustomTitle(file, index, 'image'),
+        name: imageContent.title,
         path: `${basePath}/${file}`,
         type: 'image'
       });
@@ -249,8 +234,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const familyVideos = videoFiles[productFamily];
   if (familyVideos && familyVideos[productName]) {
     familyVideos[productName].forEach((file, index) => {
+      const videoContent = getCustomContent(index, 'video');
       content.videos.push({
-        name: getCustomTitle(file, index, 'video'),
+        name: videoContent.title,
         path: `${basePath}/${file}`,
         type: 'video'
       });
@@ -447,10 +433,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                 <h4 className="text-lg font-semibold text-[#ffb81c] mb-2 capitalize">
                   {presentationGroup.name}
                 </h4>
-                <p className="text-sm text-gray-300 mb-4">
-                  Comprehensive presentation slides covering technical specifications, implementation details, 
-                  and practical applications. Navigate through slides using the controls below.
-                </p>
+                <p className="text-sm text-gray-300 mb-4">{getPresentationDescription(groupIndex)}</p>
                 <div className="relative">
                   <img
                     src={currentSlide.path}
@@ -540,9 +523,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                 <h4 className="text-lg font-semibold text-[#ffb81c] mb-2 capitalize">
                   {documentGroup.name}
                 </h4>
-                <p className="text-sm text-gray-300 mb-4">
-                  {isPDF ? 'PDF document with detailed specifications and guidelines. Use navigation controls to browse pages.' : 'Detailed documentation providing comprehensive information about features, specifications, and implementation guidelines.'}
-                </p>
+                <p className="text-sm text-gray-300 mb-4">{getDocumentDescription(groupIndex)}</p>
                 <div className="relative">
                   {isPDF ? (
                     <div className="bg-white rounded-lg p-2">
@@ -717,10 +698,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.images.map((image, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <h4 className="text-lg font-semibold text-[#ffb81c] mb-2">{image.name}</h4>
-              <p className="text-sm text-gray-300 mb-4">
-                High-quality image showcasing key features and capabilities of this solution. 
-                Click to view in fullscreen for detailed examination.
-              </p>
+              <p className="text-sm text-gray-300 mb-4">{getImageContent(index).description}</p>
               <div className="relative">
                 <img
                   src={image.path}
@@ -760,10 +738,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.videos.map((video, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <h4 className="text-lg font-semibold text-[#ffb81c] mb-2">{video.name}</h4>
-              <p className="text-sm text-gray-300 mb-4">
-                Interactive video demonstration providing in-depth insights into functionality and use cases. 
-                Click to play in fullscreen mode with full controls.
-              </p>
+              <p className="text-sm text-gray-300 mb-4">{getVideoContent(index).description}</p>
               <div className="relative">
                 <video
                   src={video.path}
@@ -944,7 +919,10 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
         <div className="flex-1 p-6 overflow-y-auto popup-scrollbar">
           {loading ? (
             <div className="flex items-center justify-center h-96">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderBottomColor: '#ffb81c' }}></div>
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderBottomColor: '#ffb81c' }}></div>
+                <p className="text-gray-400">{contentConfig.general.loadingMessage}</p>
+              </div>
             </div>
           ) : activeTab === 'overview' ? (
             <div className="space-y-6">
@@ -958,11 +936,14 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
               )}
               <div>
                 <h3 className="text-xl font-semibold mb-3 text-white">Overview</h3>
-                <p className="text-gray-300 leading-relaxed">
-                  {productName} is part of the {familyDisplayNames[productFamily] || productFamily} product family. 
-                  This advanced solution provides cutting-edge capabilities designed to meet 
-                  the demanding requirements of modern industrial applications.
-                </p>
+                {(() => {
+                  const familyInfo = getProductFamilyInfo(productFamily);
+                  return (
+                    <p className="text-gray-300 leading-relaxed">
+                      {familyInfo.overviewDescription}
+                    </p>
+                  );
+                })()}
               </div>
               {getTotalMediaCount() === 0 && (
                 <div className="bg-[#001f33]/50 border border-white/10 p-6 rounded-lg text-center">
@@ -970,7 +951,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     <FileText size={48} className="mx-auto" />
                   </div>
                   <h4 className="font-semibold text-gray-300 mb-2">No Media Files Yet</h4>
-                  <p className="text-gray-400 text-sm">No media files available for this product.</p>
+                  <p className="text-gray-400 text-sm">{contentConfig.general.noMediaMessage}</p>
                 </div>
               )}
             </div>
