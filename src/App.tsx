@@ -120,6 +120,7 @@ function App() {
   const [showQRCode, setShowQRCode] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showProductModal, setShowProductModal] = useState(false);
+  const [showComboPanel, setShowComboPanel] = useState(false);
   const [cameraInfo, setCameraInfo] = useState<{
     position: [number, number, number];
     rotation: [number, number, number];
@@ -149,6 +150,7 @@ function App() {
     console.log(`🎯 Family clicked: ${familyId}`);
     
     setSelectedFamily(familyId);
+    setShowComboPanel(false); // Close combo panel when selecting individual family
     
     // Open the product modal immediately for the main product
     const familyData = productFamilies.find(f => f.id === familyId);
@@ -167,6 +169,22 @@ function App() {
     }
   };
 
+  const handleComboClick = () => {
+    console.log('🎯 AI-Core + PROVEtech combo clicked');
+    
+    // Close individual product modal and show combo panel
+    setShowProductModal(false);
+    setSelectedFamily('ai-core-provetech-combo');
+    setShowComboPanel(true);
+    
+    // Move camera to a position that shows both AI-Core and PROVEtech
+    setCameraTarget({
+      position: [-6.32, 2.19, 6.24],
+      rotation: [0, 0, 0],
+      target: [-13, 1, 2]
+    });
+    setIsAnimating(true);
+  };
   const handleCameraReached = () => {
     console.log('📹 Camera animation completed');
     setIsAnimating(false);
@@ -177,6 +195,7 @@ function App() {
   const handleReset = () => {
     setSelectedFamily(null);
     setShowProductModal(false);
+    setShowComboPanel(false);
     // Reset camera to starting position
     setCameraTarget({
       position: [0, 2.5, 1],
@@ -423,17 +442,7 @@ function App() {
             {/* Fourth row - AI-Core+PROVEtech combination */}
             <div className="grid grid-cols-1 gap-1 mt-1">
               <button
-                onClick={() => {
-                  // Show both AI-Core and PROVEtech
-                  setSelectedFamily('ai-core-provetech-combo');
-                  // Move camera to a position that shows both
-                  setCameraTarget({
-                    position: [-6.32, 2.19, 6.24],
-                    rotation: [0, 0, 0],
-                    target: [-13, 1, 2]
-                  });
-                  setIsAnimating(true);
-                }}
+                onClick={handleComboClick}
                 onMouseDown={(e) => e.preventDefault()}
                 onDragStart={(e) => e.preventDefault()}
                 onContextMenu={(e) => e.preventDefault()}
@@ -561,6 +570,184 @@ function App() {
           </div>
         )}
 
+        {/* AI-Core + PROVEtech Combination Panel */}
+        {showComboPanel && (
+          <div className="fixed top-0 right-0 h-full w-1/3 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-y-auto popup-scrollbar">
+            <div className="p-6">
+              <button
+                onClick={() => setShowComboPanel(false)}
+                className="absolute top-4 right-4 transition-colors z-10"
+                style={{ color: 'white' }}
+              >
+                <X size={20} />
+              </button>
+              
+              <div className="mb-6">
+                <div className="flex items-center space-x-3 mb-4">
+                  <img
+                    src="./products/ai-core/AI-Core Platform copy copy.png"
+                    alt="AI-Core"
+                    className="w-12 h-12 object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = './images/logo.png';
+                    }}
+                  />
+                  <span className="text-white text-xl font-bold">+</span>
+                  <img
+                    src="./products/provetech/PROVEtech.png"
+                    alt="PROVEtech"
+                    className="w-12 h-12 object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = './images/logo.png';
+                    }}
+                  />
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">AI-Core + PROVEtech</h2>
+                <p className="text-lg text-gray-300 mb-4">Integrated Solution Suite</p>
+              </div>
+
+              <div className="space-y-6">
+                {/* Combined Solution Overview */}
+                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+                  <h3 className="text-xl font-semibold text-[#ffb81c] mb-3">Integrated Solution</h3>
+                  <p className="text-gray-300 leading-relaxed mb-4">
+                    The combination of AI-Core Platform and PROVEtech Tool Suite creates a powerful, 
+                    comprehensive testing and validation ecosystem. This integrated approach leverages 
+                    artificial intelligence to enhance traditional testing methodologies, providing 
+                    unprecedented insights and automation capabilities.
+                  </p>
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="bg-[#001f33]/50 border border-white/10 rounded p-3">
+                      <h4 className="font-semibold text-white mb-2">🤖 AI-Enhanced Testing</h4>
+                      <p className="text-sm text-gray-300">
+                        Intelligent test case generation, predictive failure analysis, and automated optimization
+                      </p>
+                    </div>
+                    <div className="bg-[#001f33]/50 border border-white/10 rounded p-3">
+                      <h4 className="font-semibold text-white mb-2">🔧 Comprehensive Validation</h4>
+                      <p className="text-sm text-gray-300">
+                        End-to-end testing capabilities from unit tests to system-wide validation
+                      </p>
+                    </div>
+                    <div className="bg-[#001f33]/50 border border-white/10 rounded p-3">
+                      <h4 className="font-semibold text-white mb-2">📊 Advanced Analytics</h4>
+                      <p className="text-sm text-gray-300">
+                        Real-time insights, performance metrics, and predictive maintenance recommendations
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI-Core Platform Section */}
+                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <img
+                      src="./products/ai-core/AI-Core Platform copy copy.png"
+                      alt="AI-Core"
+                      className="w-8 h-8 object-contain"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = './images/logo.png';
+                      }}
+                    />
+                    <h3 className="text-lg font-semibold text-[#ffb81c]">AI-Core Platform</h3>
+                  </div>
+                  <p className="text-gray-300 text-sm mb-3">
+                    {getProductFamilyInfo('ai-core').description}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setShowComboPanel(false);
+                      handleFamilyClick('ai-core');
+                    }}
+                    className="bg-[#ffb81c] text-[#001f33] px-3 py-1 rounded text-sm font-medium hover:bg-[#ffb81c]/90 transition-colors"
+                  >
+                    View Details
+                  </button>
+                </div>
+
+                {/* PROVEtech Section */}
+                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <img
+                      src="./products/provetech/PROVEtech.png"
+                      alt="PROVEtech"
+                      className="w-8 h-8 object-contain"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = './images/logo.png';
+                      }}
+                    />
+                    <h3 className="text-lg font-semibold text-[#ffb81c]">PROVEtech Tool Suite</h3>
+                  </div>
+                  <p className="text-gray-300 text-sm mb-3">
+                    {getProductFamilyInfo('provetech').description}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setShowComboPanel(false);
+                      handleFamilyClick('provetech');
+                    }}
+                    className="bg-[#ffb81c] text-[#001f33] px-3 py-1 rounded text-sm font-medium hover:bg-[#ffb81c]/90 transition-colors"
+                  >
+                    View Details
+                  </button>
+                </div>
+
+                {/* Key Benefits */}
+                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-[#ffb81c] mb-3">Key Benefits</h3>
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#ffb81c] mt-1">•</span>
+                      <span>Reduced testing time by up to 60% through AI-powered automation</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#ffb81c] mt-1">•</span>
+                      <span>Enhanced test coverage with intelligent scenario generation</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#ffb81c] mt-1">•</span>
+                      <span>Predictive failure detection before issues reach production</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#ffb81c] mt-1">•</span>
+                      <span>Seamless integration with existing development workflows</span>
+                    </li>
+                    <li className="flex items-start space-x-2">
+                      <span className="text-[#ffb81c] mt-1">•</span>
+                      <span>Real-time performance monitoring and optimization recommendations</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Contact Section */}
+                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4 text-center">
+                  <h3 className="text-lg font-semibold text-white mb-3">Interested in This Solution?</h3>
+                  <p className="text-gray-300 text-sm mb-4">
+                    {contentConfig.general.contactMessage}
+                  </p>
+                  <div className="flex flex-col items-center space-y-3">
+                    <img
+                      src="./images/qrcode.png"
+                      alt="Contact QR Code"
+                      className="w-20 h-20 object-contain"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                    <p className="text-center text-sm">
+                      or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {selectedFamilyData && !showProductModal && (
           <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 max-w-md">
             <div className="backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg p-6 shadow-xl">
@@ -617,7 +804,7 @@ function App() {
         )}
 
         {/* Product Modal */}
-        {selectedFamilyData && showProductModal && (
+        {selectedFamilyData && showProductModal && !showComboPanel && (
           <ProductModal
             isOpen={true}
             onClose={() => {
