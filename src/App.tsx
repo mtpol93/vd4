@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { RotateCcw, Wind, Mail, X } from 'lucide-react';
+import { RotateCcw, Wind, Mail, X, Play } from 'lucide-react';
 import { contentConfig, getProductFamilyInfo } from './config/content';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Showroom } from './components/Showroom';
@@ -612,6 +612,123 @@ function App() {
                 {/* Combined Solution Overview */}
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                   <h3 className="text-xl font-semibold text-[#ffb81c] mb-3">Integrated Solution</h3>
+                  
+                  {/* Video Overview */}
+                  <div className="mb-4">
+                    <div className="relative">
+                      <video
+                       ref={(el) => {
+                         if (el) {
+                           el.addEventListener('play', () => {
+                             const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
+                             if (overlay) overlay.style.display = 'none';
+                           });
+                           el.addEventListener('pause', () => {
+                             const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
+                             if (overlay) overlay.style.display = 'flex';
+                           });
+                           el.addEventListener('ended', () => {
+                             const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
+                             if (overlay) overlay.style.display = 'flex';
+                           });
+                         }
+                       }}
+                        src="./products/ai-core/main/3-videos/video1.webm"
+                        controls={false}
+                        className="w-full max-h-48 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                        style={{ aspectRatio: 'auto' }}
+                        onError={(e) => {
+                          const target = e.target as HTMLVideoElement;
+                          // Hide the video element and show a fallback message
+                          target.style.display = 'none';
+                          
+                          // Check if fallback already exists to prevent duplicates
+                          const existingFallback = target.parentNode?.querySelector('.video-error-fallback');
+                          if (!existingFallback) {
+                            const fallback = document.createElement('div');
+                            fallback.className = 'video-error-fallback flex items-center justify-center min-h-32 bg-[#001f33]/30 border border-white/10 rounded-lg';
+                            fallback.innerHTML = '<p class="text-gray-400 text-sm">Video preview not available</p>';
+                            target.parentNode?.appendChild(fallback);
+                          }
+                        }}
+                      />
+                      {/* Play Icon Overlay */}
+                      <div 
+                       className="video-play-overlay absolute inset-0 flex items-center justify-center cursor-pointer"
+                        onClick={(e) => {
+                         const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement;
+                          if (video) {
+                            if (video.paused) {
+                              video.play();
+                            } else {
+                              video.pause();
+                            }
+                          }
+                        }}
+                      >
+                        <Play 
+                          size={24} 
+                          className="text-white ml-1 drop-shadow-lg" 
+                          fill="white"
+                          style={{ 
+                            filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8))'
+                          }}
+                        />
+                      </div>
+                     {/* Fullscreen button */}
+                     <button
+                       onClick={(e) => {
+                         e.stopPropagation();
+                         const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement;
+                         if (video) {
+                           // Create fullscreen overlay
+                           const overlay = document.createElement('div');
+                           overlay.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]';
+                           overlay.style.position = 'fixed';
+                           overlay.style.top = '0';
+                           overlay.style.left = '0';
+                           overlay.style.width = '100vw';
+                           overlay.style.height = '100vh';
+                           overlay.style.zIndex = '999999';
+                           
+                           // Clone video for fullscreen
+                           const fullscreenVideo = video.cloneNode(true) as HTMLVideoElement;
+                           fullscreenVideo.controls = true;
+                           fullscreenVideo.autoplay = true;
+                           fullscreenVideo.className = 'w-full h-full object-contain';
+                           fullscreenVideo.currentTime = video.currentTime;
+                           
+                           // Close button
+                           const closeButton = document.createElement('button');
+                           closeButton.innerHTML = '×';
+                           closeButton.className = 'absolute top-6 right-6 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg text-white text-2xl hover:bg-[#001f33]/95';
+                           closeButton.onclick = () => {
+                             document.body.removeChild(overlay);
+                           };
+                           
+                           overlay.appendChild(fullscreenVideo);
+                           overlay.appendChild(closeButton);
+                           document.body.appendChild(overlay);
+                           
+                           // Close on overlay click
+                           overlay.addEventListener('click', (e) => {
+                             if (e.target === overlay) {
+                               document.body.removeChild(overlay);
+                             }
+                           });
+                         }
+                       }}
+                       className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                       title="View fullscreen"
+                     >
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                       </svg>
+                     </button>
+                    </div>
+                    <p className="text-sm text-gray-300 mt-2 text-center">AI-Core Platform Overview</p>
+                  </div>
+                  
                   <p className="text-gray-300 leading-relaxed mb-4">
                     The combination of AI-Core Platform and PROVEtech Tool Suite creates a powerful, 
                     comprehensive testing and validation ecosystem. This integrated approach leverages 
