@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { RotateCcw, Wind, Mail, X } from 'lucide-react';
+import { RotateCcw, Wind, Mail, X, Play } from 'lucide-react';
 import { contentConfig, getProductFamilyInfo } from './config/content';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Showroom } from './components/Showroom';
@@ -612,6 +612,65 @@ function App() {
                 {/* Combined Solution Overview */}
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                   <h3 className="text-xl font-semibold text-[#ffb81c] mb-3">Integrated Solution</h3>
+                  
+                  {/* Video Overview */}
+                  <div className="mb-4">
+                    <div className="relative">
+                      <video
+                        src="./products/ai-core/main/3-videos/video1.webm"
+                        controls={false}
+                        className="w-full max-h-48 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                        style={{ aspectRatio: 'auto' }}
+                        onClick={(e) => {
+                          const video = e.target as HTMLVideoElement;
+                          if (video.paused) {
+                            video.play();
+                          } else {
+                            video.pause();
+                          }
+                        }}
+                        onError={(e) => {
+                          const target = e.target as HTMLVideoElement;
+                          // Hide the video element and show a fallback message
+                          target.style.display = 'none';
+                          
+                          // Check if fallback already exists to prevent duplicates
+                          const existingFallback = target.parentNode?.querySelector('.video-error-fallback');
+                          if (!existingFallback) {
+                            const fallback = document.createElement('div');
+                            fallback.className = 'video-error-fallback flex items-center justify-center min-h-32 bg-[#001f33]/30 border border-white/10 rounded-lg';
+                            fallback.innerHTML = '<p class="text-gray-400 text-sm">Video preview not available</p>';
+                            target.parentNode?.appendChild(fallback);
+                          }
+                        }}
+                      />
+                      {/* Play Icon Overlay */}
+                      <div 
+                        className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                        onClick={(e) => {
+                          const video = e.currentTarget.parentNode?.querySelector('video') as HTMLVideoElement;
+                          if (video) {
+                            if (video.paused) {
+                              video.play();
+                            } else {
+                              video.pause();
+                            }
+                          }
+                        }}
+                      >
+                        <Play 
+                          size={24} 
+                          className="text-white ml-1 drop-shadow-lg" 
+                          fill="white"
+                          style={{ 
+                            filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8))'
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-300 mt-2 text-center">AI-Core Platform Overview</p>
+                  </div>
+                  
                   <p className="text-gray-300 leading-relaxed mb-4">
                     The combination of AI-Core Platform and PROVEtech Tool Suite creates a powerful, 
                     comprehensive testing and validation ecosystem. This integrated approach leverages 
