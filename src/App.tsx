@@ -110,6 +110,7 @@ const productCameraPositions: Record<string, CameraPosition> = {
     target: [-2.5, -1, -9]
   }
 };
+
 function App() {
   const [cameraTarget, setCameraTarget] = useState<CameraPosition | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -593,13 +594,13 @@ function App() {
                 <div className="flex flex-col items-center space-y-3">
                   <img
                     src="./images/qrcode.png"
-                    className="w-full h-full object-contain"
+                    alt="Contact QR Code"
                     className="w-24 h-24 object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
                     }}
-                    or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
+                  />
                   <p className="text-center">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span></p>
                 </div>
               </div>
