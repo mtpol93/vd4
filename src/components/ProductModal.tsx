@@ -74,7 +74,7 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const basePath = productFamily === 'akkodis-main' ? './products/akkodis' : `./products/${productFamily}`;
   
   // Consolidated presentations for main products
-  const presentationFiles: Record<string, Record<string, { folder: string; files: string[]; name?: string }[]>> = {
+  const presentationFiles: Record<string, Record<string, { folder: string; files: string[] }[]>> = {
     'akkodis-main': {
       'Akkodis Main': [
         { folder: 'main/1-presentation/presentation1', files: ['Slide1.PNG', 'Slide2.PNG', 'Slide3.PNG'], name: '20250805_Akkodis' }
