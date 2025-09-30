@@ -746,7 +746,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                   onClick={() => {
                     setSelectedMediaIndex(index);
                     toggleFullscreen();
-                  }}
+                  className="w-40 h-40 object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = productImage;
