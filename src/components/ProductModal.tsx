@@ -443,22 +443,9 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           return (
             <div key={groupIndex} className="space-y-3">
               <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-                <div className="flex items-center space-x-3 mb-2">
-                  {productFamily === 'ai-core' && (
-                    <img
-                      src={getAICoreLogoForIndex(groupIndex)}
-                      alt="AI-Core Product"
-                      className="w-8 h-8 object-contain"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  )}
-                  <h4 className="text-lg font-semibold text-[#ffb81c] capitalize">
-                    {presentationGroup.name}
-                  </h4>
-                </div>
+                <h4 className="text-lg font-semibold text-[#ffb81c] capitalize mb-2">
+                  {presentationGroup.name}
+                </h4>
                 <p className="text-sm text-gray-300 mb-4">{getPresentationDescription(groupIndex)}</p>
                 <div className="relative">
                   <img
