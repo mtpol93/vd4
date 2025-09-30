@@ -746,7 +746,8 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                   onClick={() => {
                     setSelectedMediaIndex(index);
                     toggleFullscreen();
-                  className="w-40 h-40 object-contain"
+                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                  style={{ aspectRatio: 'auto' }}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = productImage;
