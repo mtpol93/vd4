@@ -131,7 +131,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
       'Gigaboxes': []
     },
     'energy-solutions': {
-      'Energy Solutions': []
+      'Energy Solutions': [
+        'main/2-images/image1.jpg', 'main/2-images/image2.jpg', 'main/2-images/image3.jpg', 'main/2-images/image4.jpg'
+      ]
     }
   };
 
@@ -156,7 +158,10 @@ const getProductContent = (productFamily: string, productName: string): ProductC
       'Gigaboxes': []
     },
     'energy-solutions': {
-      'Energy Solutions': []
+      'Energy Solutions': [
+        'main/3-videos/video1.webm', 'main/3-videos/video2.webm', 'main/3-videos/video3.webm', 
+        'main/3-videos/video4.webm', 'main/3-videos/video5.webm'
+      ]
     }
   };
 
