@@ -780,7 +780,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                   <img
                     src={getAICoreLogoForIndex(index)}
                     alt="AI-Core Product"
-                    className="w-24 h-24 object-contain"
+                    className="w-32 h-32 object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
