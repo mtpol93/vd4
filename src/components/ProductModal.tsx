@@ -723,19 +723,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
         <div className="space-y-4">
           {content.images.map((image, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-              <div className="flex items-center space-x-3 mb-2">
-                {productFamily === 'ai-core' && (
-                  <img
-                    src={getAICoreLogoForIndex(index)}
-                    alt="AI-Core Product"
-                    className="w-8 h-8 object-contain"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                    }}
-                  />
-                )}
-              </div>
               <p className="text-sm text-gray-300 mb-4">{getImageContent(index).description}</p>
               <div className="relative">
                 <img
