@@ -775,7 +775,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
         <div className="space-y-4">
           {content.videos.map((video, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-              <div className="flex items-center space-x-3 mb-2">
+              <div className="flex items-center">
                 {productFamily === 'ai-core' && (
                   <img
                     src={getAICoreLogoForIndex(index)}
@@ -788,7 +788,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                   />
                 )}
               </div>
-              <p className="text-sm text-gray-300 mb-4">{getVideoContent(index).description}</p>
               <div className="relative">
                 <video
                   src={video.path}
