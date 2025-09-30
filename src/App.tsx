@@ -850,13 +850,13 @@ function App() {
                     <img
                       src="./images/qrcode.png"
                       alt="Contact QR Code"
-                      className="w-20 h-20 object-contain"
+                     className="w-20 h-20 object-contain mb-2"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';
                       }}
                     />
-                    <p className="text-center text-sm">
+                   <p className="text-center text-sm mt-2">
                       or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
                     </p>
                   </div>
@@ -899,13 +899,13 @@ function App() {
                   <img
                     src="./images/qrcode.png"
                     alt="Contact QR Code"
-                    className="w-24 h-24 object-contain"
+                   className="w-24 h-24 object-contain mb-2"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
                     }}
                   />
-                  <p className="text-center">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span></p>
+                 <p className="text-center mt-2">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span></p>
                 </div>
               </div>
               <div className="text-center">
