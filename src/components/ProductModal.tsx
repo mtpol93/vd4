@@ -74,7 +74,7 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const basePath = productFamily === 'akkodis-main' ? './products/akkodis' : `./products/${productFamily}`;
   
   // Consolidated presentations for main products
-  const presentationFiles: Record<string, Record<string, { folder: string; files: string[] }[]>> = {
+  const presentationFiles: Record<string, Record<string, { folder: string; files: string[]; name?: string }[]>> = {
     'akkodis-main': {
       'Akkodis Main': [
         { folder: 'main/1-presentation/presentation1', files: ['Slide1.PNG', 'Slide2.PNG', 'Slide3.PNG'], name: '20250805_Akkodis' }
@@ -746,8 +746,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                   onClick={() => {
                     setSelectedMediaIndex(index);
                     toggleFullscreen();
-                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
-                  style={{ aspectRatio: 'auto' }}
+                  }}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = productImage;
