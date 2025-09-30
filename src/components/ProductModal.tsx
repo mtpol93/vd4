@@ -735,7 +735,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     }}
                   />
                 )}
-                <h4 className="text-lg font-semibold text-[#ffb81c]">{image.name}</h4>
               </div>
               <p className="text-sm text-gray-300 mb-4">{getImageContent(index).description}</p>
               <div className="relative">
@@ -788,7 +787,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     }}
                   />
                 )}
-                <h4 className="text-lg font-semibold text-[#ffb81c]">{video.name}</h4>
               </div>
               <p className="text-sm text-gray-300 mb-4">{getVideoContent(index).description}</p>
               <div className="relative">
