@@ -724,11 +724,12 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.images.map((image, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <div className="flex items-center space-x-3 mb-2">
-                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
+                {productFamily === 'ai-core' && (
                   <img
                     src={getAICoreLogoForIndex(index)}
                     alt="AI-Core Product"
-                    className="w-48 h-48 object-contain"
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
@@ -776,11 +777,12 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.videos.map((video, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <div className="flex items-center space-x-3 mb-2">
-                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
+                {productFamily === 'ai-core' && (
                   <img
                     src={getAICoreLogoForIndex(index)}
                     alt="AI-Core Product"
-                    className="w-48 h-48 object-contain"
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
