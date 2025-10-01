@@ -18,12 +18,20 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs',
 // Function to get AI-Core logo for a given index
 const getAICoreLogoForIndex = (index: number): string => {
   const logos = [
-    './products/ai-core/main/0-logos/Agentic-min.png',
-    './products/ai-core/main/0-logos/AId-min.png',
-    './products/ai-core/main/0-logos/ChatNow-min.png',
-    './products/ai-core/main/0-logos/Meta-min.png',
-    './products/ai-core/main/0-logos/OneAI-min.png',
-    './products/ai-core/main/0-logos/TestAId-min.png'
+    './products/ai-core/main/0-logos/AId-min.png',        // 0
+    './products/ai-core/main/0-logos/ChatNow-min.png',    // 1
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 2
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 3
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 4
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 5
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 6
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 7
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 8
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 9
+    './products/ai-core/main/0-logos/AId-min.png',        // 10
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 11
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 12
+    './products/ai-core/main/0-logos/Meta-min.png'        // 13
   ];
   return logos[index % logos.length];
 };
