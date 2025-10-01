@@ -39,12 +39,12 @@ const getAICoreLogoForIndex = (index: number): string => {
 // Function to get AI-Core logo for videos with different order
 const getAICoreLogoForVideoIndex = (index: number): string => {
   const logos = [
-    './products/ai-core/main/0-logos/TestAId-min.png',
-    './products/ai-core/main/0-logos/OneAI-min.png',
-    './products/ai-core/main/0-logos/Meta-min.png',
-    './products/ai-core/main/0-logos/ChatNow-min.png',
-    './products/ai-core/main/0-logos/AId-min.png',
-    './products/ai-core/main/0-logos/Agentic-min.png'
+    './products/ai-core/main/0-logos/AId-min.png',        // 0
+    './products/ai-core/main/0-logos/AId-min.png',        // 1
+    './products/ai-core/main/0-logos/AId-min.png',        // 2
+    './products/ai-core/main/0-logos/Meta-min.png',       // 3
+    './products/ai-core/main/0-logos/TestAId-min.png',    // 4
+    './products/ai-core/main/0-logos/TestAId-min.png'     // 5
   ];
   return logos[index % logos.length];
 };
