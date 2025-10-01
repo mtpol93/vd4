@@ -867,17 +867,20 @@ function App() {
           </div>
         )}
         {selectedFamilyData && !showProductModal && (
-          <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 max-w-md">
-            <div className="backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg p-6 shadow-xl">
+          <div className="fixed top-0 right-0 h-full w-1/3 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-y-auto popup-scrollbar">
+            <div className="p-6">
               <button
                 onClick={handleReset}
-                className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white hover:text-gray-300 transition-colors z-10"
+                className="absolute top-4 right-4 transition-colors z-10"
+                style={{ color: 'white' }}
                 title="Close panel"
               >
-                <X size={16} />
+                <X size={20} />
               </button>
+              
+              <div className="mb-6">
               {selectedFamily !== 'akkodis-main' && (
-                <div className="w-20 h-20 overflow-hidden p-2">
+                <div className="w-20 h-20 overflow-hidden p-2 mb-4">
                   <img
                     src={selectedFamilyData.image}
                     alt={selectedFamilyData.name}
@@ -890,26 +893,29 @@ function App() {
                   />
                 </div>
               )}
-              <div>
-                <h3 className="text-xl font-bold text-white">{selectedFamilyData.name}</h3>
-                <p className="text-sm text-gray-300">Product Family</p>
+                <h2 className="text-2xl font-bold text-white mb-2">{selectedFamilyData.name}</h2>
+                <p className="text-lg text-gray-300 mb-4">Product Family</p>
               </div>
+              
               <div className="text-white text-sm leading-relaxed mb-4">
                 <p className="mb-3">{contentConfig.general.contactMessage}</p>
                 <div className="flex flex-col items-center space-y-3">
                   <img
                     src="./images/qrcode.png"
                     alt="Contact QR Code"
-                   className="w-24 h-24 object-contain mb-2"
+                    className="w-20 h-20 object-contain mb-2"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
                     }}
                   />
-                 <p className="text-center mt-2">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span></p>
+                  <p className="text-center text-sm mt-2">
+                    or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
+                  </p>
                 </div>
               </div>
-              <div className="text-center">
+              
+              <div className="text-center mt-6">
                 <button
                   onClick={handleReset}
                   className="bg-[#ffb81c] text-[#001f33] px-4 py-2 rounded-lg font-medium hover:bg-[#ffb81c]/90 transition-colors"
