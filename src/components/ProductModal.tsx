@@ -4,7 +4,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { 
   contentConfig, 
   getProductFamilyInfo, 
-  getMediaContent 
+  getFamilyMedia 
 } from '../config/content';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -233,8 +233,18 @@ const getProductContent = (productFamily: string, productName: string): ProductC
     }
   };
 
-  // Get media data from config
-  const mediaData = getMediaContent(productFamily);
+  // Get product family info
+  const familyInfo = getProductFamilyInfo(productFamily);
+  const familyMedia = getFamilyMedia(productFamily);
+
+  // Custom titles for images and videos
+  const getCustomContent = (index: number, type: 'image' | 'video') => {
+    if (type === 'image') {
+      return familyMedia.images[index] || { title: `Image ${index + 1}`, description: 'Image description' };
+    } else {
+      return familyMedia.videos[index] || { title: `Video ${index + 1}`, description: 'Video description' };
+    }
+  };
 
   // Build the content structure
   const content: ProductContent = {
@@ -277,9 +287,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const familyImages = imageFiles[productFamily];
   if (familyImages && familyImages[productName]) {
     familyImages[productName].forEach((file, index) => {
-      const imageData = mediaData.images[index] || { title: `Image ${index + 1}`, description: 'Image content' };
+      const imageContent = getCustomContent(index, 'image');
       content.images.push({
-        name: imageData.title,
+        name: imageContent.title,
         path: `${basePath}/${file}`,
         type: 'image'
       });
@@ -290,9 +300,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const familyVideos = videoFiles[productFamily];
   if (familyVideos && familyVideos[productName]) {
     familyVideos[productName].forEach((file, index) => {
-      const videoData = mediaData.videos[index] || { title: `Video ${index + 1}`, description: 'Video content' };
+      const videoContent = getCustomContent(index, 'video');
       content.videos.push({
-        name: videoData.title,
+        name: videoContent.title,
         path: `${basePath}/${file}`,
         type: 'video'
       });
@@ -349,6 +359,10 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [pdfError, setPdfError] = useState<boolean>(false);
+
+  // Get product family info
+  const familyInfo = getProductFamilyInfo(productFamily);
+  const familyMedia = getFamilyMedia(productFamily);
 
   useEffect(() => {
     if (isOpen && productName && productFamily) {
@@ -467,8 +481,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
       );
     }
 
-    const mediaData = getMediaContent(productFamily);
-
     return (
       <div className="space-y-6">
         {content.presentations.map((presentationGroup, groupIndex) => {
@@ -485,7 +497,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             updatePresentationIndex(groupIndex, newIndex);
           };
 
-          const presentationData = mediaData.presentations[groupIndex] || { name: presentationGroup.name, description: 'Presentation content' };
+          const presentationData = familyMedia.presentations[groupIndex];
 
           return (
             <div key={groupIndex} className="space-y-3">
@@ -493,7 +505,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                 <h4 className="text-lg font-semibold text-[#ffb81c] capitalize mb-2">
                   {presentationGroup.name}
                 </h4>
-                <p className="text-sm text-gray-300 mb-4">{presentationData.description}</p>
+                <p className="text-sm text-gray-300 mb-4">{presentationData?.description || 'Presentation description'}</p>
                 <div className="relative">
                   <img
                     src={currentSlide.path}
@@ -568,8 +580,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
       );
     }
 
-    const mediaData = getMediaContent(productFamily);
-
     return (
       <div className="space-y-6">
         {content.documents.map((documentGroup, groupIndex) => {
@@ -579,7 +589,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           // Check if this is a PDF file
           const isPDF = currentPage.path.toLowerCase().endsWith('.pdf');
 
-          const documentData = mediaData.documents[groupIndex] || { name: documentGroup.name, description: 'Document content' };
+          const documentData = familyMedia.documents[groupIndex];
 
           return (
             <div key={groupIndex} className="space-y-3">
@@ -600,7 +610,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     {documentGroup.name}
                   </h4>
                 </div>
-                <p className="text-sm text-gray-300 mb-4">{documentData.description}</p>
+                <p className="text-sm text-gray-300 mb-4">{documentData?.description || 'Document description'}</p>
                 <div className="relative">
                   {isPDF ? (
                     <div className="bg-white rounded-lg p-2">
@@ -768,14 +778,12 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
       );
     }
 
-    const mediaData = getMediaContent(productFamily);
-
     // Special handling for images, videos, and documents - show all stacked vertically
     if (activeTab === 'images') {
       return (
         <div className="space-y-4">
           {content.images.map((image, index) => {
-            const imageData = mediaData.images[index] || { title: image.name, description: 'Image content' };
+            const imageData = familyMedia.images[index];
             return (
               <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                 <div className="flex items-center space-x-3 mb-2">
@@ -816,7 +824,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     />
                   )}
                 </div>
-                <p className="text-sm text-gray-300 mb-4">{imageData.description}</p>
+                <p className="text-sm text-gray-300 mb-4">{imageData?.description || 'Image description'}</p>
                 <div className="relative">
                   <img
                     src={image.path}
@@ -841,7 +849,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
       return (
         <div className="space-y-4">
           {content.videos.map((video, index) => {
-            const videoData = mediaData.videos[index] || { title: video.name, description: 'Video content' };
+            const videoData = familyMedia.videos[index];
             return (
               <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                 <div className="flex items-center space-x-3 mb-2">
@@ -868,9 +876,9 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                       }}
                     />
                   )}
-                  <h4 className="text-lg font-semibold text-[#ffb81c]">{videoData.title}</h4>
+                  <h4 className="text-lg font-semibold text-[#ffb81c]">{videoData?.title || video.name}</h4>
                 </div>
-                <p className="text-sm text-gray-300 mb-4">{videoData.description}</p>
+                <p className="text-sm text-gray-300 mb-4">{videoData?.description || 'Video description'}</p>
                 <div className="relative">
                   <video
                     src={video.path}
@@ -992,12 +1000,12 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           </button>
           <div>
             <img
-              src={productImage}
+              src={familyInfo.logoPath}
               alt={familyDisplayNames[productFamily] || productFamily}
              className="h-6 object-contain mb-2"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-               target.src = './images/logo.png';
+               target.src = contentConfig.ui.fallbackLogoPath;
               }}
             />
             <p className="text-lg text-gray-300">{productName}</p>
