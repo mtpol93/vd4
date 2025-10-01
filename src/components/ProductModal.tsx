@@ -8,10 +8,6 @@ export interface ContentConfig {
       name: string;
       description: string;
       overviewDescription: string;
-      logos?: {
-        name: string;
-        path: string;
-      }[];
     };
   };
   
@@ -68,7 +64,7 @@ export const contentConfig: ContentConfig = {
     'energy-solutions': {
       name: 'Energy Solutions',
       description: 'Sustainable energy management platform optimizing power distribution, renewable integration, and energy efficiency across industrial and commercial applications.',
-      overviewDescription: 'Energy Solutions delivers comprehensive energy management capabilities for modern industrial and commercial applications. Our platform optimizes power distribution, integrates renewable energy sources, and maximizes energy efficiency through intelligent monitoring and control systems.',
+      overviewDescription: 'Energy Solutions delivers comprehensive energy management capabilities for modern industrial and commercial applications. Our platform integrates renewable energy sources, optimizes power distribution networks, and provides intelligent energy efficiency solutions that reduce costs while supporting sustainability goals across diverse operational environments.',
       logos: [
         {
           name: 'Energy Logo 1',
