@@ -18,37 +18,37 @@ const productFamilies = [
   {
     id: 'akkodis-main',
     name: getProductFamilyInfo('akkodis-main').name,
-    image: './images/Logo-White-Akkodis.png',
+    image: getProductFamilyInfo('akkodis-main').logoPath,
     description: contentConfig.general.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('akkodis-main').name, image: './images/Logo-White-Akkodis.png' }
+    mainProduct: { name: getProductFamilyInfo('akkodis-main').name, image: getProductFamilyInfo('akkodis-main').logoPath }
   },
   {
     id: 'ai-core',
     name: getProductFamilyInfo('ai-core').name,
-    image: './products/ai-core/AI-Core Platform copy copy.png',
+    image: getProductFamilyInfo('ai-core').logoPath,
     description: contentConfig.general.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('ai-core').name, image: './products/ai-core/AI-Core Platform copy copy.png' }
+    mainProduct: { name: getProductFamilyInfo('ai-core').name, image: getProductFamilyInfo('ai-core').logoPath }
   },
   {
     id: 'netcomm',
     name: getProductFamilyInfo('netcomm').name,
-    image: './products/netcomm/netcomm-validation copy.png',
+    image: getProductFamilyInfo('netcomm').logoPath,
     description: contentConfig.general.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('netcomm').name, image: './products/netcomm/netcomm-validation copy.png' }
+    mainProduct: { name: getProductFamilyInfo('netcomm').name, image: getProductFamilyInfo('netcomm').logoPath }
   },
   {
     id: 'provetech',
     name: getProductFamilyInfo('provetech').name,
-    image: './products/provetech/PROVEtech.png',
+    image: getProductFamilyInfo('provetech').logoPath,
     description: contentConfig.general.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('provetech').name, image: './products/provetech/PROVEtech.png' }
+    mainProduct: { name: getProductFamilyInfo('provetech').name, image: getProductFamilyInfo('provetech').logoPath }
   },
   {
     id: 'energy-solutions',
     name: getProductFamilyInfo('energy-solutions').name,
-    image: './products/energy-solutions/Energy-Solutions.png',
+    image: getProductFamilyInfo('energy-solutions').logoPath,
     description: contentConfig.general.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('energy-solutions').name, image: './products/energy-solutions/Energy-Solutions.png' }
+    mainProduct: { name: getProductFamilyInfo('energy-solutions').name, image: getProductFamilyInfo('energy-solutions').logoPath }
   }
 ];
 
@@ -356,7 +356,7 @@ function App() {
         </div>
 
         {/* Main Product Family Buttons */}
-        <div className="absolute top-4 left-4 z-10 max-w-xs">
+        <div className="absolute top-4 left-4 z-10 max-w-[225px]">
           <div className="backdrop-blur-md bg-[#001f33]/90 rounded-lg p-3 shadow-lg border border-white/20">
             {/* First row - Akkodis alone */}
             <div className="grid grid-cols-1 gap-1 mb-1">
@@ -370,7 +370,7 @@ function App() {
                   className="group relative transition-transform duration-300 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg hover:bg-[#001f33]/95 select-none"
                   style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                 >
-                  <div className="w-full h-20 overflow-hidden flex items-center justify-center px-4">
+                  <div className="h-20 overflow-hidden flex items-center justify-center px-4">
                     <img
                       src={family.image}
                       alt={family.name}
@@ -378,7 +378,7 @@ function App() {
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                   </div>
@@ -405,7 +405,7 @@ function App() {
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                   </div>
@@ -432,7 +432,7 @@ function App() {
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                   </div>
@@ -449,27 +449,27 @@ function App() {
                 className="group relative transition-transform duration-300 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg hover:bg-[#001f33]/95 select-none"
                 style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
               >
-                <div className="w-full h-20 overflow-hidden flex items-center justify-center px-2">
+                <div className="h-20 overflow-hidden flex items-center justify-center px-2">
                   <div className="flex items-center space-x-1 p-1">
                     <img
-                      src="./products/ai-core/AI-Core Platform copy copy.png"
+                      src={getProductFamilyInfo('ai-core').logoPath}
                       alt="AI-Core"
                       className="w-8 h-8 object-contain"
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                     <span className="text-white text-xs font-bold">+</span>
                     <img
-                      src="./products/provetech/PROVEtech.png"
+                      src={getProductFamilyInfo('provetech').logoPath}
                       alt="PROVEtech"
                       className="w-8 h-8 object-contain"
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                   </div>
@@ -544,7 +544,7 @@ function App() {
               </button>
               <div className="flex flex-col items-center justify-center space-y-4">
                 <img
-                  src="/images/Logo-White-Akkodis.png"
+                  src={getProductFamilyInfo('akkodis-main').logoPath}
                   alt="Contact Us Logo"
                   className="w-32 h-24 object-contain"
                   onError={(e) => {
@@ -554,7 +554,7 @@ function App() {
                 />
                 <h3 className="text-xl font-bold text-white -mt-4">Contact Us</h3>
                 <img
-                  src="/images/qrcode.png"
+                  src={contentConfig.general.qrCodePath}
                   alt="Contact QR Code"
                   className="w-40 h-40 object-contain -mt-2"
                   onError={(e) => {
@@ -563,7 +563,7 @@ function App() {
                   }}
                 />
                 <p className="text-gray-300 text-sm -mt-2">
-                  or email us at <span style={{ color: '#ffb81c' }}>marketing-products@akkodis.com</span>
+                  or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
                 </p>
               </div>
             </div>
@@ -585,22 +585,22 @@ function App() {
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
                   <img
-                    src="./products/ai-core/AI-Core Platform copy copy.png"
+                    src={getProductFamilyInfo('ai-core').logoPath}
                     alt="AI-Core"
                     className="w-12 h-12 object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = './images/logo.png';
+                      target.src = contentConfig.general.fallbackLogoPath;
                     }}
                   />
                   <span className="text-white text-xl font-bold">+</span>
                   <img
-                    src="./products/provetech/PROVEtech.png"
+                    src={getProductFamilyInfo('provetech').logoPath}
                     alt="PROVEtech"
                     className="w-12 h-12 object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = './images/logo.png';
+                      target.src = contentConfig.general.fallbackLogoPath;
                     }}
                   />
                 </div>
@@ -635,7 +635,7 @@ function App() {
                        }}
                         src="./products/ai-core/main/3-videos/video1.webm"
                         controls={false}
-                        className="w-full max-h-48 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                        className="w-full h-auto object-contain"
                         style={{ aspectRatio: 'auto' }}
                         onError={(e) => {
                           const target = e.target as HTMLVideoElement;
@@ -761,12 +761,12 @@ function App() {
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <img
-                      src="./products/ai-core/AI-Core Platform copy copy.png"
+                      src={getProductFamilyInfo('ai-core').logoPath}
                       alt="AI-Core"
                       className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                     <h3 className="text-lg font-semibold text-[#ffb81c]">AI-Core Platform</h3>
@@ -789,12 +789,12 @@ function App() {
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <img
-                      src="./products/provetech/PROVEtech.png"
+                      src={getProductFamilyInfo('provetech').logoPath}
                       alt="PROVEtech"
                       className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = './images/logo.png';
+                        target.src = contentConfig.general.fallbackLogoPath;
                       }}
                     />
                     <h3 className="text-lg font-semibold text-[#ffb81c]">PROVEtech Tool Suite</h3>
@@ -848,7 +848,7 @@ function App() {
                   </p>
                   <div className="flex flex-col items-center space-y-3">
                     <img
-                      src="./images/qrcode.png"
+                      src={contentConfig.general.qrCodePath}
                       alt="Contact QR Code"
                      className="w-20 h-20 object-contain mb-2"
                       onError={(e) => {
@@ -884,7 +884,7 @@ function App() {
                     draggable={false}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = './images/logo.png';
+                      target.src = contentConfig.general.fallbackLogoPath;
                     }}
                   />
                 </div>
@@ -897,7 +897,7 @@ function App() {
                 <p className="mb-3">{contentConfig.general.contactMessage}</p>
                 <div className="flex flex-col items-center space-y-3">
                   <img
-                    src="./images/qrcode.png"
+                    src={contentConfig.general.qrCodePath}
                     alt="Contact QR Code"
                    className="w-24 h-24 object-contain mb-2"
                     onError={(e) => {
