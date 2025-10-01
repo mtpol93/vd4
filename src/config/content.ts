@@ -200,3 +200,32 @@ export const getDocumentDescription = (index: number) => {
   const documents = contentConfig.mediaContent.documents;
   return documents.descriptions[index % documents.descriptions.length];
 };
+
+// Product Logos Configuration
+export const PRODUCT_LOGOS = {
+  // AI-Core Platform Logos (6 logos cycling)
+  'ai-core': [
+    './products/ai-core/main/0-logos/Agentic-min.png',    // 0: Agentic logo
+    './products/ai-core/main/0-logos/AId-min.png',        // 1: AId logo
+    './products/ai-core/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
+    './products/ai-core/main/0-logos/Meta-min.png',       // 3: Meta logo
+    './products/ai-core/main/0-logos/OneAI-min.png',      // 4: OneAI logo
+    './products/ai-core/main/0-logos/TestAId-min.png'     // 5: TestAId logo
+  ],
+  // Other product families can be added here
+  'netcomm': [],
+  'provetech': [],
+  'energy-solutions': [],
+  'gigaboxes': [],
+  'akkodis-main': []
+};
+
+// Helper function to get product logo by family and index
+export const getProductLogoForIndex = (familyId: string, index: number): string => {
+  const logos = PRODUCT_LOGOS[familyId as keyof typeof PRODUCT_LOGOS] || [];
+  if (logos.length === 0) {
+    // Fallback to main product image if no logos available
+    return `./products/${familyId}/${familyId}.png`;
+  }
+  return logos[index % logos.length];
+};
