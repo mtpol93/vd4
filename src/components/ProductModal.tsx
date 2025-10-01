@@ -989,19 +989,19 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                       <h4 className="text-lg font-medium text-white mb-2">Available Content</h4>
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div className="flex items-center space-x-2">
-                          <span>📊</span>
+                          <Presentation size={16} className="text-[#ffb81c]" />
                           <span className="text-gray-300">{content.presentations.length} Presentations</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span>🖼️</span>
+                          <ImageIcon size={16} className="text-[#ffb81c]" />
                           <span className="text-gray-300">{content.images.length} Images</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span>🎥</span>
+                          <Video size={16} className="text-[#ffb81c]" />
                           <span className="text-gray-300">{content.videos.length} Videos</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span>📄</span>
+                          <FileText size={16} className="text-[#ffb81c]" />
                           <span className="text-gray-300">{content.documents.length} Documents</span>
                         </div>
                       </div>
