@@ -49,6 +49,16 @@ const getAICoreLogoForVideoIndex = (index: number): string => {
   return logos[index % logos.length];
 };
 
+// Function to get NetComm logo for a given index
+const getNetCommLogoForIndex = (index: number): string => {
+  const logos = [
+    './products/netcomm/main/0-logos/logo1.png',         // 0
+    './products/netcomm/main/0-logos/logo2.png',         // 1
+    './products/netcomm/main/0-logos/logo3.png'          // 2
+  ];
+  return logos[index % logos.length];
+};
+
 interface ProductModalProps {
   isOpen: boolean;
   onClose: () => void;
