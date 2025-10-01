@@ -962,7 +962,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             <div className="space-y-6">
               <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-[#ffb81c] mb-4">Product Overview</h3>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
                   <div>
                     <img
                       src={overviewImage}
