@@ -370,7 +370,7 @@ function App() {
                   className="group relative transition-transform duration-300 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg hover:bg-[#001f33]/95 select-none"
                   style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                 >
-                  <div className="w-full h-20 overflow-hidden flex items-center justify-center px-4">
+                  <div className="h-20 overflow-hidden flex items-center justify-center px-4">
                     <img
                       src={family.image}
                       alt={family.name}
@@ -449,7 +449,7 @@ function App() {
                 className="group relative transition-transform duration-300 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg hover:bg-[#001f33]/95 select-none"
                 style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
               >
-                <div className="w-full h-20 overflow-hidden flex items-center justify-center px-2">
+                <div className="h-20 overflow-hidden flex items-center justify-center px-2">
                   <div className="flex items-center space-x-1 p-1">
                     <img
                       src="./products/ai-core/AI-Core Platform copy copy.png"
