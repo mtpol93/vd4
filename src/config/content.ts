@@ -65,11 +65,6 @@ export const contentConfig: ContentConfig = {
       name: 'Energy Solutions',
       description: 'Sustainable energy management platform optimizing power distribution, renewable integration, and energy efficiency across industrial and commercial applications.',
       overviewDescription: 'Our Energy Solutions platform addresses the critical need for sustainable and efficient energy management in modern industrial operations. Through advanced monitoring, intelligent distribution systems, and renewable energy integration, we help organizations reduce their carbon footprint while optimizing energy costs and reliability.'
-    },
-    'gigaboxes': {
-      name: 'Gigaboxes',
-      description: 'Advanced modular storage and processing solutions providing scalable infrastructure for high-performance computing and data management applications.',
-      overviewDescription: 'Gigaboxes represents our cutting-edge approach to modular infrastructure solutions. These high-performance units deliver exceptional processing power, storage capacity, and networking capabilities in compact, scalable configurations designed for demanding industrial and enterprise environments.'
     }
   },
 
@@ -199,33 +194,4 @@ export const getPresentationDescription = (index: number) => {
 export const getDocumentDescription = (index: number) => {
   const documents = contentConfig.mediaContent.documents;
   return documents.descriptions[index % documents.descriptions.length];
-};
-
-// Product Logos Configuration
-export const PRODUCT_LOGOS = {
-  // AI-Core Platform Logos (6 logos cycling)
-  'ai-core': [
-    './products/ai-core/main/0-logos/Agentic-min.png',    // 0: Agentic logo
-    './products/ai-core/main/0-logos/AId-min.png',        // 1: AId logo
-    './products/ai-core/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
-    './products/ai-core/main/0-logos/Meta-min.png',       // 3: Meta logo
-    './products/ai-core/main/0-logos/OneAI-min.png',      // 4: OneAI logo
-    './products/ai-core/main/0-logos/TestAId-min.png'     // 5: TestAId logo
-  ],
-  // Other product families can be added here
-  'netcomm': [],
-  'provetech': [],
-  'energy-solutions': [],
-  'gigaboxes': [],
-  'akkodis-main': []
-};
-
-// Helper function to get product logo by family and index
-export const getProductLogoForIndex = (familyId: string, index: number): string => {
-  const logos = PRODUCT_LOGOS[familyId as keyof typeof PRODUCT_LOGOS] || [];
-  if (logos.length === 0) {
-    // Fallback to main product image if no logos available
-    return `./products/${familyId}/${familyId}.png`;
-  }
-  return logos[index % logos.length];
 };

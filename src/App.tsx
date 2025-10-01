@@ -49,13 +49,6 @@ const productFamilies = [
     image: './products/energy-solutions/Energy-Solutions.png',
     description: contentConfig.general.contactMessage,
     mainProduct: { name: getProductFamilyInfo('energy-solutions').name, image: './products/energy-solutions/Energy-Solutions.png' }
-  },
-  {
-    id: 'gigaboxes',
-    name: getProductFamilyInfo('gigaboxes').name,
-    image: './products/gigaboxes/Gigaboxes.png',
-    description: contentConfig.general.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('gigaboxes').name, image: './products/gigaboxes/Gigaboxes.png' }
   }
 ];
 
@@ -115,11 +108,6 @@ const productCameraPositions: Record<string, CameraPosition> = {
     position: [-3.25, 1.46, -3.02],
     rotation: [-0.390, -0.116, -0.048],
     target: [-2.5, -1, -9]
-  },
-  [getProductFamilyInfo('gigaboxes').name]: {
-    position: [3, 2, 2],
-    rotation: [0, -0.8, 0],
-    target: [0, 2, -3]
   }
 };
 
@@ -276,11 +264,10 @@ function App() {
               <Showroom
                 selectedSector="automotive"
                 showWindTunnel={showWindTunnel}
-                showAICore={selectedFamily === 'ai-core' || selectedFamily === 'ai-core-provetech-combo'}
+                showAICore={selectedFamily === 'ai-core'}
                 showNetComm={selectedFamily === 'netcomm'}
-                showPROVEtech={selectedFamily === 'provetech' || selectedFamily === 'ai-core-provetech-combo'}
+                showPROVEtech={selectedFamily === 'provetech'}
                 showEnergySolutions={selectedFamily === 'energy-solutions'}
-                showGigaboxes={selectedFamily === 'gigaboxes'}
                 cameraTarget={cameraTarget}
                 onCameraReached={handleCameraReached}
                 onWindTunnelAnimationChange={setWindTunnelAnimating}
