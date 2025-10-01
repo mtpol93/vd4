@@ -631,11 +631,11 @@ function App() {
                              const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
                              if (overlay) overlay.style.display = 'flex';
                            });
-                    <div className="w-16 h-16 overflow-hidden">
+                         }
                        }}
                         src="./products/ai-core/main/3-videos/video1.webm"
                         controls={false}
-                        className="w-6 h-6 object-contain"
+                        className="w-full h-auto object-contain"
                         style={{ aspectRatio: 'auto' }}
                         onError={(e) => {
                           const target = e.target as HTMLVideoElement;
