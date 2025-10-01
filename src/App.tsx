@@ -356,7 +356,7 @@ function App() {
         </div>
 
         {/* Main Product Family Buttons */}
-        <div className="absolute top-4 left-4 z-10 max-w-[225px]">
+        <div className="absolute top-4 left-4 z-10 max-w-xs">
           <div className="backdrop-blur-md bg-[#001f33]/90 rounded-lg p-3 shadow-lg border border-white/20">
             {/* First row - Akkodis alone */}
             <div className="grid grid-cols-1 gap-1 mb-1">
@@ -370,7 +370,7 @@ function App() {
                   className="group relative transition-transform duration-300 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg hover:bg-[#001f33]/95 select-none"
                   style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
                 >
-                  <div className="h-20 overflow-hidden flex items-center justify-center px-4">
+                  <div className="w-full h-20 overflow-hidden flex items-center justify-center px-4">
                     <img
                       src={family.image}
                       alt={family.name}
@@ -449,7 +449,7 @@ function App() {
                 className="group relative transition-transform duration-300 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg hover:bg-[#001f33]/95 select-none"
                 style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
               >
-                <div className="h-20 overflow-hidden flex items-center justify-center px-2">
+                <div className="w-full h-20 overflow-hidden flex items-center justify-center px-2">
                   <div className="flex items-center space-x-1 p-1">
                     <img
                       src="./products/ai-core/AI-Core Platform copy copy.png"
@@ -635,7 +635,7 @@ function App() {
                        }}
                         src="./products/ai-core/main/3-videos/video1.webm"
                         controls={false}
-                        className="w-full h-auto object-contain"
+                        className="w-full max-h-48 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
                         style={{ aspectRatio: 'auto' }}
                         onError={(e) => {
                           const target = e.target as HTMLVideoElement;
