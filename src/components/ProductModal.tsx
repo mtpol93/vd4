@@ -136,8 +136,6 @@ const getProductContent = (productFamily: string, productName: string): ProductC
     'provetech': {
       'PROVEtech Tool Suite': [
         { folder: 'main/1-presentation/presentation1', files: ['Slide1.PNG', 'Slide2.PNG', 'Slide3.PNG', 'Slide4.PNG', 'Slide5.PNG', 'Slide6.PNG'], name: 'PROVEtech Input Demonstrator' }
-        { folder: 'main/1-presentation/presentation2', files: ['Slide1.PNG', 'Slide2.PNG', 'Slide3.PNG', 'Slide4.PNG', 'Slide5.PNG', 'Slide6.PNG', 'Slide7.PNG', 'Slide8.PNG', 'Slide9.PNG', 'Slide10.PNG', 'Slide11.PNG', 'Slide12.PNG', 'Slide13.PNG', 'Slide14.PNG', 'Slide15.PNG', 'Slide16.PNG', 'Slide17.PNG', 'Slide18.PNG', 'Slide19.PNG', 'Slide20.PNG', 'Slide21.PNG', 'Slide22.PNG', 'Slide23.PNG', 'Slide24.PNG', 'Slide25.PNG', 'Slide26.PNG', 'Slide27.PNG', 'Slide28.PNG', 'Slide29.PNG'], name: 'PROVEtech Comprehensive Overview' },
-        { folder: 'main/1-presentation/presentation3', files: ['Slide1.PNG', 'Slide2.PNG', 'Slide3.PNG', 'Slide4.PNG', 'Slide5.PNG', 'Slide6.PNG', 'Slide7.PNG', 'Slide8.PNG', 'Slide9.PNG', 'Slide10.PNG', 'Slide11.PNG', 'Slide12.PNG', 'Slide13.PNG'], name: 'PROVEtech Technical Deep Dive' }
       ]
     },
     'gigaboxes': {
@@ -197,9 +195,7 @@ const getProductContent = (productFamily: string, productName: string): ProductC
       'NetComm Validation': []
     },
     'provetech': {
-      'PROVEtech Tool Suite': [
-        'main/3-videos/video1.mp4'
-      ]
+      'PROVEtech Tool Suite': []
     },
     'gigaboxes': {
       'Gigaboxes': []
@@ -776,10 +772,11 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.images.map((image, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <div className="flex items-center space-x-3 mb-2">
-                {(productFamily === 'ai-core' || productFamily === 'energy-solutions') && (
+                {/* Logo based on product family - except Energy Solutions */}
+                {productFamily === 'ai-core' && (
                   <img
                     src={getAICoreLogoForIndex(index)}
-                    alt={`${productFamily} Product`}
+                    alt="AI-Core Logo"
                     className="object-contain"
                     style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
@@ -791,7 +788,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                 {productFamily === 'netcomm' && (
                   <img
                     src={getNetCommLogoForIndex(index)}
-                    alt="NetComm Product"
+                    alt="NetComm Logo"
                     className="object-contain"
                     style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
@@ -803,7 +800,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                 {productFamily === 'provetech' && (
                   <img
                     src={getPROVEtechLogoForIndex(index)}
-                    alt="PROVEtech Product"
+                    alt="PROVEtech Logo"
                     className="object-contain"
                     style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
