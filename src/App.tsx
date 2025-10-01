@@ -356,7 +356,7 @@ function App() {
         </div>
 
         {/* Main Product Family Buttons */}
-        <div className="absolute top-4 left-4 z-10 max-w-xs">
+        <div className="absolute top-4 left-4 z-10 max-w-[225px]">
           <div className="backdrop-blur-md bg-[#001f33]/90 rounded-lg p-3 shadow-lg border border-white/20">
             {/* First row - Akkodis alone */}
             <div className="grid grid-cols-1 gap-1 mb-1">
@@ -631,11 +631,11 @@ function App() {
                              const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
                              if (overlay) overlay.style.display = 'flex';
                            });
-                         }
+                    <div className="w-16 h-16 overflow-hidden">
                        }}
                         src="./products/ai-core/main/3-videos/video1.webm"
                         controls={false}
-                        className="w-full max-h-48 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                        className="w-6 h-6 object-contain"
                         style={{ aspectRatio: 'auto' }}
                         onError={(e) => {
                           const target = e.target as HTMLVideoElement;
