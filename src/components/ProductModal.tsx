@@ -642,10 +642,10 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             <div key={groupIndex} className="space-y-3">
               <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                 <div className="flex items-center space-x-3 mb-2">
-                  {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
+                  {(PRODUCT_LOGOS[productFamily as keyof typeof PRODUCT_LOGOS]) && (
                     <img
-                      src={getAICoreLogoForIndex(groupIndex)}
-                      alt={`${productFamily} Product`}
+                      src={getProductLogo(productFamily, groupIndex)}
+                      alt={`${getProductFamilyInfo(productFamily).name} logo`}
                       className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -832,12 +832,12 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.images.map((image, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <div className="flex items-center space-x-3 mb-2">
-                {(PRODUCT_LOGOS[productFamily as keyof typeof PRODUCT_LOGOS]) && (
+                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
                   <img
-                    src={getProductLogo(productFamily, index)}
-                    alt={`${getProductFamilyInfo(productFamily).name} logo`}
+                    src={getAICoreLogoForIndex(index)}
+                    alt={`${productFamily} Product`}
+                    className="object-contain"
                     style={{ width: '192px', height: '192px' }}
-                    className="object-contain mb-2"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
@@ -885,10 +885,10 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           {content.videos.map((video, index) => (
             <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
               <div className="flex items-center space-x-3 mb-2">
-                {(PRODUCT_LOGOS[productFamily as keyof typeof PRODUCT_LOGOS]) && (
+                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
                   <img
-                    src={getProductLogo(productFamily, index)}
-                    alt={`${getProductFamilyInfo(productFamily).name} logo`}
+                    src={getAICoreLogoForIndex(index)}
+                    alt={`${productFamily} Product`}
                     className="object-contain"
                     style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
