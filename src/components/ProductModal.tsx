@@ -901,31 +901,31 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-[#001f33]/95 border border-white/20 rounded-lg w-full max-w-6xl max-h-[90vh] overflow-hidden shadow-2xl">
+    <div className="fixed top-0 right-0 h-full w-1/2 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-hidden">
+      <div className="h-full flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
+        <div className="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
           <div className="flex items-center space-x-4">
             <img
               src={productImage}
               alt={productName}
-              className="w-12 h-12 object-cover rounded-lg border border-white/20"
+              className="w-10 h-10 object-cover rounded-lg border border-white/20"
             />
             <div>
-              <h2 className="text-2xl font-bold text-white">{productName}</h2>
+              <h2 className="text-xl font-bold text-white">{productName}</h2>
               <p className="text-[#ffb81c] text-sm">{familyDisplayNames[productFamily] || productFamily}</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 transition-colors"
+            className="w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 transition-colors"
           >
-            <X size={20} color="white" />
+            <X size={16} color="white" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-white/10 bg-[#001f33]/50">
+        <div className="flex border-b border-white/10 bg-[#001f33]/50 flex-shrink-0">
           {[
             { id: 'overview', label: 'Overview', icon: '📋' },
             { id: 'presentations', label: 'Presentations', icon: '📊' },
@@ -949,7 +949,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+        <div className="p-4 overflow-y-auto flex-1 popup-scrollbar">
           {loading ? (
             <div className="flex items-center justify-center h-96">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ffb81c]"></div>
@@ -1010,6 +1010,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             renderMediaViewer()
           )}
         </div>
+      </div>
       </div>
 
       {/* Fullscreen Modal */}
