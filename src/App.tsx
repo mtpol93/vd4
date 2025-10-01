@@ -268,6 +268,7 @@ function App() {
                 showNetComm={selectedFamily === 'netcomm'}
                 showPROVEtech={selectedFamily === 'provetech'}
                 showEnergySolutions={selectedFamily === 'energy-solutions'}
+                showGigaboxes={false}
                 cameraTarget={cameraTarget}
                 onCameraReached={handleCameraReached}
                 onWindTunnelAnimationChange={setWindTunnelAnimating}
