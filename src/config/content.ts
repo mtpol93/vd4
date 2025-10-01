@@ -15,21 +15,21 @@ export interface ContentConfig {
   mediaContent: {
     images: {
       titles: string[];
-      descriptions: string[];
-    };
-    videos: {
-      titles: string[];
-      descriptions: string[];
-    };
-    presentations: {
-      descriptions: string[];
-    };
-    documents: {
-      descriptions: string[];
-    };
-  };
-  
-  // Contact and general content
+        'Lorem Ipsum Dolor Sit Amet Image 1',
+        'Consectetur Adipiscing Elit Image 2',
+        'Sed Do Eiusmod Tempor Image 3',
+        'Incididunt Ut Labore Image 4',
+        'Et Dolore Magna Aliqua Image 5',
+        'Ut Enim Ad Minim Image 6',
+        'Veniam Quis Nostrud Image 7',
+        'Exercitation Ullamco Laboris Image 8',
+        'Nisi Ut Aliquip Ex Image 9',
+        'Ea Commodo Consequat Image 10',
+        'Duis Aute Irure Dolor Image 11',
+        'In Reprehenderit Voluptate Image 12',
+        'Velit Esse Cillum Image 13',
+        'Dolore Eu Fugiat Image 14',
+        'Nulla Pariatur Excepteur Image 15'
   general: {
     contactMessage: string;
     emailAddress: string;
