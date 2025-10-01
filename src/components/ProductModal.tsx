@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, FileText, Image as ImageIcon, Video, Presentation, Maximize2, Play } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, FileText, Image as ImageIcon, Video, Presentation, Maximize2, Play, Info } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { 
   contentConfig, 
@@ -926,25 +926,28 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-white/10 bg-[#001f33]/50">
+        <div className="grid grid-cols-5 border-b border-white/10 bg-[#001f33]/50">
           {[
-            { id: 'overview', label: 'Overview', icon: '📋' },
-            { id: 'presentations', label: 'Presentations', icon: '📊' },
-            { id: 'images', label: 'Images', icon: '🖼️' },
-            { id: 'videos', label: 'Videos', icon: '🎥' },
-            { id: 'documents', label: 'Documents', icon: '📄' }
+            { id: 'overview', label: 'Overview', icon: Info, count: null },
+            { id: 'presentations', label: 'Presentations', icon: Presentation, count: content.presentations.length },
+            { id: 'images', label: 'Images', icon: ImageIcon, count: content.images.length },
+            { id: 'videos', label: 'Videos', icon: Video, count: content.videos.length },
+            { id: 'documents', label: 'Documents', icon: FileText, count: content.documents.length }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+              className={`flex flex-col items-center px-2 py-3 text-xs font-medium transition-colors border-b-2 ${
                 activeTab === tab.id
                   ? 'text-[#ffb81c] border-[#ffb81c] bg-[#001f33]/70'
                   : 'text-gray-300 border-transparent hover:text-white hover:bg-[#001f33]/30'
               }`}
             >
-              <span className="mr-2">{tab.icon}</span>
-              {tab.label}
+              <tab.icon size={16} className="mb-1" />
+              <span className="text-center leading-tight">{tab.label}</span>
+              {tab.count !== null && (
+                <span className="text-xs text-gray-400 mt-1">({tab.count})</span>
+              )}
             </button>
           ))}
         </div>
