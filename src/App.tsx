@@ -357,7 +357,7 @@ function App() {
         </div>
 
         {/* Main Product Family Buttons */}
-        <div className="absolute top-4 left-4 z-10 max-w-xs">
+        <div className="absolute top-4 left-4 z-10 max-w-[225px]">
           <div className="backdrop-blur-md bg-[#001f33]/90 rounded-lg p-3 shadow-lg border border-white/20">
             {/* First row - Akkodis alone */}
             <div className="grid grid-cols-1 gap-1 mb-1">
