@@ -64,7 +64,24 @@ export const contentConfig: ContentConfig = {
     'energy-solutions': {
       name: 'Energy Solutions',
       description: 'Sustainable energy management platform optimizing power distribution, renewable integration, and energy efficiency across industrial and commercial applications.',
-      overviewDescription: 'Our Energy Solutions platform addresses the critical need for sustainable and efficient energy management in modern industrial operations. Through advanced monitoring, intelligent distribution systems, and renewable energy integration, we help organizations reduce their carbon footprint while optimizing energy costs and reliability.'
+      logos: [
+        {
+          name: 'Energy Logo 1',
+          path: './products/energy-solutions/main/0-logos/logo1.png'
+        },
+        {
+          name: 'Energy Logo 2', 
+          path: './products/energy-solutions/main/0-logos/logo2.png'
+        },
+        {
+          name: 'Energy Logo 3',
+          path: './products/energy-solutions/main/0-logos/logo3.png'
+        },
+        {
+          name: 'Energy Logo 4',
+          path: './products/energy-solutions/main/0-logos/logo4.png'
+        }
+      ],
     }
   },
 
