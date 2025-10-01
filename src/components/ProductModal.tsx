@@ -15,17 +15,68 @@ import 'react-pdf/dist/Page/TextLayer.css';
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString();
 
-// Function to get AI-Core logo for a given index
-const getAICoreLogoForIndex = (index: number): string => {
-  const logos = [
-    './products/ai-core/main/0-logos/Agentic-min.png',
-    './products/ai-core/main/0-logos/AId-min.png',
-    './products/ai-core/main/0-logos/ChatNow-min.png',
-    './products/ai-core/main/0-logos/Meta-min.png',
-    './products/ai-core/main/0-logos/OneAI-min.png',
-    './products/ai-core/main/0-logos/TestAId-min.png'
-  ];
-  return logos[index % logos.length];
+// ========================================
+// PRODUCT LOGOS CONFIGURATION
+// ========================================
+// Easy to adapt: Each logo has its own line for quick modifications
+
+const PRODUCT_LOGOS = {
+  // AI-Core Platform Logos (index-based)
+  aiCore: {
+    0: './products/ai-core/main/0-logos/Agentic-min.png',     // Agentic logo
+    1: './products/ai-core/main/0-logos/AId-min.png',         // AId logo  
+    2: './products/ai-core/main/0-logos/ChatNow-min.png',     // ChatNow logo
+    3: './products/ai-core/main/0-logos/Meta-min.png',        // Meta logo
+    4: './products/ai-core/main/0-logos/OneAI-min.png',       // OneAI logo
+    5: './products/ai-core/main/0-logos/TestAId-min.png'      // TestAId logo
+  },
+  
+  // Energy Solutions Logos (index-based) 
+  energySolutions: {
+    0: './products/energy-solutions/main/0-logos/Agentic-min.png',     // Agentic logo
+    1: './products/energy-solutions/main/0-logos/AId-min.png',         // AId logo
+    2: './products/energy-solutions/main/0-logos/ChatNow-min.png',     // ChatNow logo
+    3: './products/energy-solutions/main/0-logos/Meta-min.png',        // Meta logo
+    4: './products/energy-solutions/main/0-logos/OneAI-min.png',       // OneAI logo
+    5: './products/energy-solutions/main/0-logos/TestAId-min.png'      // TestAId logo
+  },
+  
+  // NetComm Validation Logos (index-based)
+  netcomm: {
+    0: './products/ai-core/main/0-logos/Agentic-min.png',     // Agentic logo
+    1: './products/ai-core/main/0-logos/AId-min.png',         // AId logo
+    2: './products/ai-core/main/0-logos/ChatNow-min.png',     // ChatNow logo
+    3: './products/ai-core/main/0-logos/Meta-min.png',        // Meta logo
+    4: './products/ai-core/main/0-logos/OneAI-min.png',       // OneAI logo
+    5: './products/ai-core/main/0-logos/TestAId-min.png'      // TestAId logo
+  },
+  
+  // PROVEtech Tool Suite Logos (index-based)
+  provetech: {
+    0: './products/ai-core/main/0-logos/Agentic-min.png',     // Agentic logo
+    1: './products/ai-core/main/0-logos/AId-min.png',         // AId logo
+    2: './products/ai-core/main/0-logos/ChatNow-min.png',     // ChatNow logo
+    3: './products/ai-core/main/0-logos/Meta-min.png',        // Meta logo
+    4: './products/ai-core/main/0-logos/OneAI-min.png',       // OneAI logo
+    5: './products/ai-core/main/0-logos/TestAId-min.png'      // TestAId logo
+  }
+};
+
+// Function to get product logo for a given family and index
+const getProductLogoForIndex = (productFamily: string, index: number): string => {
+  const familyKey = (() => {
+    switch (productFamily) {
+      case 'ai-core': return 'aiCore';
+      case 'energy-solutions': return 'energySolutions';
+      case 'netcomm': return 'netcomm';
+      case 'provetech': return 'provetech';
+      default: return 'aiCore'; // fallback
+    }
+  })();
+  
+  const familyLogos = PRODUCT_LOGOS[familyKey];
+  const logoIndex = index % Object.keys(familyLogos).length;
+  return familyLogos[logoIndex];
 };
 
 interface ProductModalProps {
@@ -122,7 +173,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
       ]
     },
     'netcomm': {
-      'NetComm Validation': []
+      'NetComm Validation': [
+        'main/2-images/image1.jpg', 'main/2-images/image2.jpg', 'main/2-images/image3.webp'
+      ]
     },
     'provetech': {
       'PROVEtech Tool Suite': []
