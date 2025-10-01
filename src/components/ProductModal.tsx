@@ -604,37 +604,14 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     <img
                       src={currentPage.path}
                       alt={currentPage.name}
-                      className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                      className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg"
                       style={{ aspectRatio: 'auto' }}
-                      onClick={() => {
-                        setCurrentDocumentGroup(groupIndex);
-                        setSelectedMediaIndex(currentPageIndex);
-                        toggleFullscreen();
-                      }}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.src = productImage;
                       }}
                     />
-                  )}
-                  <button
-                    onClick={() => {
-                      setCurrentDocumentGroup(groupIndex);
-                      setSelectedMediaIndex(currentPageIndex);
-                      toggleFullscreen();
-                    }}
                     className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                    title="View fullscreen"
-                  >
-                    <Maximize2 size={16} color="white" />
-                  </button>
-                  {isPDF && numPages && numPages > 1 && (
-                    <>
-                      <button
-                        onClick={() => setPageNumber(page => Math.max(1, page - 1))}
-                        disabled={pageNumber <= 1}
-                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                      >
                         <ChevronLeft size={16} color="white" />
                       </button>
                       <button
@@ -760,27 +737,13 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                 <img
                   src={image.path}
                   alt={image.name}
-                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg"
                   style={{ aspectRatio: 'auto' }}
-                  onClick={() => {
-                    setSelectedMediaIndex(index);
-                    toggleFullscreen();
-                  }}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = productImage;
                   }}
                 />
-                <button
-                  onClick={() => {
-                    setSelectedMediaIndex(index);
-                    toggleFullscreen();
-                  }}
-                  className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                  title="View fullscreen"
-                >
-                  <Maximize2 size={16} color="white" />
-                </button>
               </div>
             </div>
           ))}
