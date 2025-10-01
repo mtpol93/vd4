@@ -901,15 +901,15 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
   };
 
   return (
-    <div className="fixed top-0 right-0 h-full w-1/2 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-hidden">
+    <div className="fixed top-0 right-0 h-full w-1/2 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-y-auto popup-scrollbar">
       <div className="h-full flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
+        <div className="flex items-center justify-between p-6 border-b border-white/10">
           <div className="flex items-center space-x-4">
             <img
               src={productImage}
               alt={productName}
-              className="w-10 h-10 object-cover rounded-lg border border-white/20"
+              className="w-12 h-12 object-contain rounded-lg border border-white/20"
             />
             <div>
               <h2 className="text-xl font-bold text-white">{productName}</h2>
@@ -918,14 +918,15 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 transition-colors"
+            className="transition-colors z-10"
+            style={{ color: 'white' }}
           >
-            <X size={16} color="white" />
+            <X size={20} />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-white/10 bg-[#001f33]/50 flex-shrink-0">
+        <div className="flex border-b border-white/10 bg-[#001f33]/50">
           {[
             { id: 'overview', label: 'Overview', icon: '📋' },
             { id: 'presentations', label: 'Presentations', icon: '📊' },
@@ -949,7 +950,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
         </div>
 
         {/* Content */}
-        <div className="p-4 overflow-y-auto flex-1 popup-scrollbar">
+        <div className="p-6 flex-1">
           {loading ? (
             <div className="flex items-center justify-center h-96">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ffb81c]"></div>
@@ -1010,7 +1011,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             renderMediaViewer()
           )}
         </div>
-      </div>
       </div>
 
       {/* Fullscreen Modal */}
