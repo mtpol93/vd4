@@ -39,22 +39,12 @@ const getAICoreLogoForIndex = (index: number): string => {
 // Function to get AI-Core logo for videos with different order
 const getAICoreLogoForVideoIndex = (index: number): string => {
   const logos = [
-    './products/ai-core/main/0-logos/AId-min.png',        // 0 - video 1
-    './products/ai-core/main/0-logos/AId-min.png',        // 1 - video 2
-    './products/ai-core/main/0-logos/AId-min.png',        // 2 - video 3
-    './products/ai-core/main/0-logos/Meta-min.png',       // 3 - video 4
-    './products/ai-core/main/0-logos/TestAId-min.png',    // 4 - video 5
-    './products/ai-core/main/0-logos/TestAId-min.png'     // 5 - video 6
-  ];
-  return logos[index % logos.length];
-};
-
-// Function to get NetComm logo for a given index
-const getNetCommLogoForIndex = (index: number): string => {
-  const logos = [
-    './products/netcomm/main/0-logos/logo1.png',         // 0
-    './products/netcomm/main/0-logos/logo2.png',         // 1
-    './products/netcomm/main/0-logos/logo3.png'          // 2
+    './products/ai-core/main/0-logos/TestAId-min.png',
+    './products/ai-core/main/0-logos/OneAI-min.png',
+    './products/ai-core/main/0-logos/Meta-min.png',
+    './products/ai-core/main/0-logos/ChatNow-min.png',
+    './products/ai-core/main/0-logos/AId-min.png',
+    './products/ai-core/main/0-logos/Agentic-min.png'
   ];
   return logos[index % logos.length];
 };
@@ -521,12 +511,24 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                       </button>
                     </>
                   )}
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-[#001f33]/90 border border-white/20 px-2 py-1 rounded-sm text-xs font-medium shadow-md text-white">
+                    {currentSlideIndex + 1} / {presentationGroup.slides.length}
+                  </div>
                 </div>
-                <div className="flex justify-between items-center mt-3">
-                  <span className="text-sm text-gray-400">
-                    Slide {currentSlideIndex + 1} of {presentationGroup.slides.length}
-                  </span>
-                </div>
+                {presentationGroup.slides.length > 1 && (
+                  <div className="flex items-center justify-center space-x-2 mt-3">
+                    {presentationGroup.slides.map((_, slideIndex) => (
+                      <button
+                        key={slideIndex}
+                        onClick={() => updatePresentationIndex(groupIndex, slideIndex)}
+                        className={`w-2 h-2 rounded-full transition-colors backdrop-blur-md border border-white/20 ${
+                          slideIndex === currentSlideIndex ? 'bg-[#ffb81c]' : 'bg-[#001f33]/90'
+                        }`}
+                        style={slideIndex === currentSlideIndex ? { backgroundColor: '#ffb81c' } : {}}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -535,529 +537,613 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
     );
   };
 
-  // Helper function to get the appropriate logo based on product family and index
-  const getLogoForMedia = (index: number, mediaType: 'image' | 'video' = 'image') => {
-    if (productFamily === 'ai-core') {
-      return mediaType === 'video' 
-        ? getAICoreLogoForVideoIndex(index)
-        : getAICoreLogoForIndex(index);
-    } else if (productFamily === 'netcomm') {
-      return getNetCommLogoForIndex(index);
-    } else {
-      // Fallback to AI-Core logos for other product families
-      return mediaType === 'video' 
-        ? getAICoreLogoForVideoIndex(index)
-        : getAICoreLogoForIndex(index);
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="backdrop-blur-md bg-[#001f33]/95 border border-white/20 rounded-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex">
-        {/* Left Panel - Navigation */}
-        <div className="w-1/3 border-r border-white/20 flex flex-col">
-          {/* Header */}
-          <div className="p-6 border-b border-white/20">
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 transition-colors z-10"
-              style={{ color: 'white' }}
-            >
-              <X size={20} />
-            </button>
-            
-            <div className="flex items-center space-x-4 mb-4">
-              <img
-                src={productImage}
-                alt={productName}
-                className="w-16 h-16 object-contain"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = './images/logo.png';
-                }}
-              />
-              <div>
-                <h2 className="text-2xl font-bold text-white">{productName}</h2>
-                <p className="text-sm text-gray-300">{familyDisplayNames[productFamily] || productFamily}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Tab Navigation */}
-          <div className="flex-1 overflow-y-auto popup-scrollbar">
-            <div className="p-4 space-y-2">
-              {[
-                { id: 'overview', label: 'Overview', icon: FileText },
-                { id: 'presentations', label: 'Presentations', icon: Presentation },
-                { id: 'images', label: 'Images', icon: ImageIcon },
-                { id: 'videos', label: 'Videos', icon: Video },
-                { id: 'documents', label: 'Documents', icon: FileText }
-              ].map(({ id, label, icon: Icon }) => (
-                <button
-                  key={id}
-                  onClick={() => setActiveTab(id as any)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                    activeTab === id
-                      ? 'bg-[#ffb81c] text-[#001f33]'
-                      : 'text-white hover:bg-white/10'
-                  }`}
-                >
-                  <Icon size={20} />
-                  <span className="font-medium">{label}</span>
-                  {id === 'presentations' && content.presentations.length > 0 && (
-                    <span className="ml-auto bg-white/20 text-xs px-2 py-1 rounded-full">
-                      {content.presentations.length}
-                    </span>
-                  )}
-                  {id === 'images' && content.images.length > 0 && (
-                    <span className="ml-auto bg-white/20 text-xs px-2 py-1 rounded-full">
-                      {content.images.length}
-                    </span>
-                  )}
-                  {id === 'videos' && content.videos.length > 0 && (
-                    <span className="ml-auto bg-white/20 text-xs px-2 py-1 rounded-full">
-                      {content.videos.length}
-                    </span>
-                  )}
-                  {id === 'documents' && content.documents.length > 0 && (
-                    <span className="ml-auto bg-white/20 text-xs px-2 py-1 rounded-full">
-                      {content.documents.length}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
+  const renderDocumentSliders = () => {
+    if (content.documents.length === 0) {
+      return (
+        <div className="flex flex-col items-center justify-center h-96 bg-[#001f33]/50 border border-white/10 rounded-lg">
+          <div className="text-center">
+            <FileText size={64} className="mx-auto mb-4 text-gray-500" />
+            <p className="text-gray-400">No documents available</p>
           </div>
         </div>
+      );
+    }
 
-        {/* Right Panel - Content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto popup-scrollbar p-6">
-            {activeTab === 'overview' && (
-              <div className="space-y-6">
-                <div className="text-center">
-                  <img
-                    src={overviewImage}
-                    alt={`${productName} Overview`}
-                    className="w-full max-h-64 object-contain mb-4 bg-[#001f33]/30 border border-white/10 rounded-lg"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = productImage;
-                    }}
-                  />
-                  <h3 className="text-2xl font-bold text-white mb-2">{productName}</h3>
-                  <p className="text-lg text-gray-300 mb-4">{getProductFamilyInfo(productFamily).description}</p>
-                </div>
-                
-                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-6">
-                  <h4 className="text-xl font-semibold text-[#ffb81c] mb-4">Product Overview</h4>
-                  <p className="text-gray-300 leading-relaxed mb-6">
-                    {getProductFamilyInfo(productFamily).overviewDescription}
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-[#001f33]/50 border border-white/10 rounded p-4">
-                      <h5 className="font-semibold text-white mb-2">Key Features</h5>
-                      <ul className="text-sm text-gray-300 space-y-1">
-                        <li>• Advanced technology integration</li>
-                        <li>• Scalable architecture</li>
-                        <li>• Real-time performance monitoring</li>
-                        <li>• Industry-standard compliance</li>
-                      </ul>
-                    </div>
-                    <div className="bg-[#001f33]/50 border border-white/10 rounded p-4">
-                      <h5 className="font-semibold text-white mb-2">Benefits</h5>
-                      <ul className="text-sm text-gray-300 space-y-1">
-                        <li>• Improved operational efficiency</li>
-                        <li>• Reduced implementation time</li>
-                        <li>• Enhanced system reliability</li>
-                        <li>• Comprehensive support</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+    return (
+      <div className="space-y-6">
+        {content.documents.map((documentGroup, groupIndex) => {
+          const currentPageIndex = documentIndices[groupIndex] || 0;
+          const currentPage = documentGroup.pages[currentPageIndex];
+          
+          // Check if this is a PDF file
+          const isPDF = currentPage.path.toLowerCase().endsWith('.pdf');
 
-                <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-6 text-center">
-                  <h4 className="text-xl font-semibold text-white mb-4">Interested in This Solution?</h4>
-                  <p className="text-gray-300 mb-4">{contentConfig.general.contactMessage}</p>
-                  <div className="flex flex-col items-center space-y-3">
+          return (
+            <div key={groupIndex} className="space-y-3">
+              <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
                     <img
-                      src="./images/qrcode.png"
-                      alt="Contact QR Code"
-                      className="w-32 h-32 object-contain"
+                      src={getAICoreLogoForIndex(groupIndex)}
+                      alt={`${productFamily} Product`}
+                      className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';
                       }}
                     />
-                    <p className="text-center">
-                      or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
-                    </p>
-                  </div>
+                  )}
+                  <h4 className="text-lg font-semibold text-[#ffb81c] capitalize">
+                    {documentGroup.name}
+                  </h4>
                 </div>
-              </div>
-            )}
-
-            {activeTab === 'presentations' && (
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-6">Presentations</h3>
-                {renderPresentationSliders()}
-              </div>
-            )}
-
-            {activeTab === 'images' && (
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-6">Images</h3>
-                {content.images.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-96 bg-[#001f33]/50 border border-white/10 rounded-lg">
-                    <div className="text-center">
-                      <ImageIcon size={64} className="mx-auto mb-4 text-gray-500" />
-                      <p className="text-gray-400">No images available</p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {content.images.map((image, index) => {
-                      const logoPath = getLogoForMedia(index, 'image');
-                      return (
-                        <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-                          <div className="flex items-center space-x-3 mb-3">
-                            <img
-                              src={logoPath}
-                              alt="Product Logo"
-                              className="w-8 h-8 object-contain"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = productImage;
-                              }}
-                            />
-                            <h4 className="text-lg font-semibold text-[#ffb81c]">{image.name}</h4>
+                <p className="text-sm text-gray-300 mb-4">{getDocumentDescription(groupIndex)}</p>
+                <div className="relative">
+                  {isPDF ? (
+                    <div className="bg-white rounded-lg p-2">
+                      <Document
+                        file={currentPage.path}
+                        onLoadSuccess={onDocumentLoadSuccess}
+                        onLoadError={onDocumentLoadError}
+                        loading={
+                          <div className="flex items-center justify-center h-80">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#ffb81c]"></div>
                           </div>
-                          <div className="relative group">
-                            <img
-                              src={image.path}
-                              alt={image.name}
-                              className="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform group-hover:scale-105"
-                              onClick={() => {
-                                // Create fullscreen overlay
-                                const overlay = document.createElement('div');
-                                overlay.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]';
-                                overlay.style.position = 'fixed';
-                                overlay.style.top = '0';
-                                overlay.style.left = '0';
-                                overlay.style.width = '100vw';
-                                overlay.style.height = '100vh';
-                                overlay.style.zIndex = '999999';
-                                
-                                const fullscreenImage = document.createElement('img');
-                                fullscreenImage.src = image.path;
-                                fullscreenImage.className = 'max-w-full max-h-full object-contain';
-                                
-                                const closeButton = document.createElement('button');
-                                closeButton.innerHTML = '×';
-                                closeButton.className = 'absolute top-6 right-6 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg text-white text-2xl hover:bg-[#001f33]/95';
-                                closeButton.onclick = () => {
-                                  document.body.removeChild(overlay);
-                                };
-                                
-                                overlay.appendChild(fullscreenImage);
-                                overlay.appendChild(closeButton);
-                                document.body.appendChild(overlay);
-                                
-                                overlay.addEventListener('click', (e) => {
-                                  if (e.target === overlay) {
-                                    document.body.removeChild(overlay);
-                                  }
-                                });
-                              }}
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = productImage;
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors rounded-lg flex items-center justify-center">
-                              <Maximize2 size={24} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
+                        }
+                      >
+                        {!pdfError && (
+                          <Page
+                            pageNumber={pageNumber}
+                            width={Math.min(400, window.innerWidth * 0.2)}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                          />
+                        )}
+                      </Document>
+                      {pdfError && (
+                        <div className="flex items-center justify-center h-80 bg-gray-100">
+                          <div className="text-center">
+                            <FileText size={48} className="mx-auto mb-2 text-gray-400" />
+                            <p className="text-gray-600">Unable to load PDF</p>
+                            <p className="text-sm text-gray-500">{currentPage.name}</p>
                           </div>
-                          <p className="text-sm text-gray-300 mt-3">{getImageContent(index).description}</p>
                         </div>
-                      );
-                    })}
+                      )}
+                    </div>
+                  ) : (
+                    <img
+                      src={currentPage.path}
+                      alt={currentPage.name}
+                      className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                      style={{ aspectRatio: 'auto' }}
+                      onClick={() => {
+                        setCurrentDocumentGroup(groupIndex);
+                        setSelectedMediaIndex(currentPageIndex);
+                        toggleFullscreen();
+                      }}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = productImage;
+                      }}
+                    />
+                  )}
+                  <button
+                    onClick={() => {
+                      setCurrentDocumentGroup(groupIndex);
+                      setSelectedMediaIndex(currentPageIndex);
+                      toggleFullscreen();
+                    }}
+                    className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                    title="View fullscreen"
+                  >
+                    <Maximize2 size={16} color="white" />
+                  </button>
+                  {isPDF && numPages && numPages > 1 && (
+                    <>
+                      <button
+                        onClick={() => setPageNumber(page => Math.max(1, page - 1))}
+                        disabled={pageNumber <= 1}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                      >
+                        <ChevronLeft size={16} color="white" />
+                      </button>
+                      <button
+                        onClick={() => setPageNumber(page => Math.min(numPages, page + 1))}
+                        disabled={pageNumber >= numPages}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                      >
+                        <ChevronRight size={16} color="white" />
+                      </button>
+                    </>
+                  )}
+                  {isPDF && numPages && (
+                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-[#001f33]/90 border border-white/20 px-2 py-1 rounded-sm text-xs font-medium shadow-md text-white">
+                      {pageNumber} / {numPages}
+                    </div>
+                  )}
+                  {!isPDF && documentGroup.pages.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => {
+                          const newIndex = (currentPageIndex - 1 + documentGroup.pages.length) % documentGroup.pages.length;
+                          updateDocumentIndex(groupIndex, newIndex);
+                        }}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                      >
+                        <ChevronLeft size={16} color="white" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          const newIndex = (currentPageIndex + 1) % documentGroup.pages.length;
+                          updateDocumentIndex(groupIndex, newIndex);
+                        }}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                      >
+                        <ChevronRight size={16} color="white" />
+                      </button>
+                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-[#001f33]/90 border border-white/20 px-2 py-1 rounded-sm text-xs font-medium shadow-md text-white">
+                        {currentPageIndex + 1} / {documentGroup.pages.length}
+                      </div>
+                    </>
+                  )}
+                </div>
+                {isPDF && numPages && numPages > 1 && (
+                  <div className="flex items-center justify-center space-x-2 mt-3">
+                    {Array.from(new Array(Math.min(numPages, 10)), (el, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setPageNumber(index + 1)}
+                        className={`w-2 h-2 rounded-full transition-colors backdrop-blur-md border border-white/20 ${
+                          index + 1 === pageNumber ? 'bg-[#ffb81c]' : 'bg-[#001f33]/90'
+                        }`}
+                        style={index + 1 === pageNumber ? { backgroundColor: '#ffb81c' } : {}}
+                      />
+                    ))}
+                    {numPages > 10 && <span className="text-xs text-gray-400">...</span>}
+                  </div>
+                )}
+                {!isPDF && documentGroup.pages.length > 1 && (
+                  <div className="flex items-center justify-center space-x-2 mt-3">
+                    {documentGroup.pages.map((_, pageIndex) => (
+                      <button
+                        key={pageIndex}
+                        onClick={() => updateDocumentIndex(groupIndex, pageIndex)}
+                        className={`w-2 h-2 rounded-full transition-colors backdrop-blur-md border border-white/20 ${
+                          pageIndex === currentPageIndex ? 'bg-[#ffb81c]' : 'bg-[#001f33]/90'
+                        }`}
+                        style={pageIndex === currentPageIndex ? { backgroundColor: '#ffb81c' } : {}}
+                      />
+                    ))}
                   </div>
                 )}
               </div>
-            )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+  const renderMediaViewer = () => {
+    if (activeTab === 'presentations') {
+      return renderPresentationSliders();
+    }
+    
+    if (activeTab === 'documents') {
+      return renderDocumentSliders();
+    }
+    
+    if (!currentMedia) {
+      return (
+        <div className="flex flex-col items-center justify-center h-96 bg-[#001f33]/50 border border-white/10 rounded-lg">
+          <div className="text-center">
+            {activeTab === 'images' && <ImageIcon size={64} className="mx-auto mb-4 text-gray-500" />}
+            {activeTab === 'videos' && <Video size={64} className="mx-auto mb-4 text-gray-500" />}
+            {activeTab === 'documents' && <FileText size={64} className="mx-auto mb-4 text-gray-500" />}
+            <p className="text-gray-400">No {activeTab} available</p>
+          </div>
+        </div>
+      );
+    }
 
-            {activeTab === 'videos' && (
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-6">Videos</h3>
-                {content.videos.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-96 bg-[#001f33]/50 border border-white/10 rounded-lg">
-                    <div className="text-center">
-                      <Video size={64} className="mx-auto mb-4 text-gray-500" />
-                      <p className="text-gray-400">No videos available</p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {content.videos.map((video, index) => {
-                      const logoPath = getLogoForMedia(index, 'video');
-                      return (
-                        <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-                          <div className="flex items-center space-x-3 mb-3">
-                            <img
-                              src={logoPath}
-                              alt="Product Logo"
-                              className="w-8 h-8 object-contain"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = productImage;
-                              }}
-                            />
-                            <h4 className="text-lg font-semibold text-[#ffb81c]">{video.name}</h4>
-                          </div>
-                          <div className="relative">
-                            <video
-                              ref={(el) => {
-                                if (el) {
-                                  el.addEventListener('play', () => {
-                                    const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
-                                    if (overlay) overlay.style.display = 'none';
-                                  });
-                                  el.addEventListener('pause', () => {
-                                    const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
-                                    if (overlay) overlay.style.display = 'flex';
-                                  });
-                                  el.addEventListener('ended', () => {
-                                    const overlay = el.parentNode?.querySelector('.video-play-overlay') as HTMLElement;
-                                    if (overlay) overlay.style.display = 'flex';
-                                  });
-                                }
-                              }}
-                              src={video.path}
-                              controls={false}
-                              className="w-full max-h-64 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
-                              style={{ aspectRatio: 'auto' }}
-                              onError={(e) => {
-                                const target = e.target as HTMLVideoElement;
-                                target.style.display = 'none';
-                                
-                                const existingFallback = target.parentNode?.querySelector('.video-error-fallback');
-                                if (!existingFallback) {
-                                  const fallback = document.createElement('div');
-                                  fallback.className = 'video-error-fallback flex items-center justify-center min-h-32 bg-[#001f33]/30 border border-white/10 rounded-lg';
-                                  fallback.innerHTML = '<p class="text-gray-400 text-sm">Video preview not available</p>';
-                                  target.parentNode?.appendChild(fallback);
-                                }
-                              }}
-                            />
-                            <div 
-                              className="video-play-overlay absolute inset-0 flex items-center justify-center cursor-pointer"
-                              onClick={(e) => {
-                                const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement;
-                                if (video) {
-                                  if (video.paused) {
-                                    video.play();
-                                  } else {
-                                    video.pause();
-                                  }
-                                }
-                              }}
-                            >
-                              <Play 
-                                size={32} 
-                                className="text-white ml-1 drop-shadow-lg" 
-                                fill="white"
-                                style={{ 
-                                  filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8))'
-                                }}
-                              />
-                            </div>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                const video = e.currentTarget.parentElement?.querySelector('video') as HTMLVideoElement;
-                                if (video) {
-                                  const overlay = document.createElement('div');
-                                  overlay.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-[999999]';
-                                  overlay.style.position = 'fixed';
-                                  overlay.style.top = '0';
-                                  overlay.style.left = '0';
-                                  overlay.style.width = '100vw';
-                                  overlay.style.height = '100vh';
-                                  overlay.style.zIndex = '999999';
-                                  
-                                  const fullscreenVideo = video.cloneNode(true) as HTMLVideoElement;
-                                  fullscreenVideo.controls = true;
-                                  fullscreenVideo.autoplay = true;
-                                  fullscreenVideo.className = 'w-full h-full object-contain';
-                                  fullscreenVideo.currentTime = video.currentTime;
-                                  
-                                  const closeButton = document.createElement('button');
-                                  closeButton.innerHTML = '×';
-                                  closeButton.className = 'absolute top-6 right-6 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg text-white text-2xl hover:bg-[#001f33]/95';
-                                  closeButton.onclick = () => {
-                                    document.body.removeChild(overlay);
-                                  };
-                                  
-                                  overlay.appendChild(fullscreenVideo);
-                                  overlay.appendChild(closeButton);
-                                  document.body.appendChild(overlay);
-                                  
-                                  overlay.addEventListener('click', (e) => {
-                                    if (e.target === overlay) {
-                                      document.body.removeChild(overlay);
-                                    }
-                                  });
-                                }
-                              }}
-                              className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                              title="View fullscreen"
-                            >
-                              <Maximize2 size={16} color="white" />
-                            </button>
-                          </div>
-                          <p className="text-sm text-gray-300 mt-3">{getVideoContent(index).description}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
+    // Special handling for images, videos, and documents - show all stacked vertically
+    if (activeTab === 'images') {
+      return (
+        <div className="space-y-4">
+          {content.images.map((image, index) => (
+            <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-2">
+                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
+                  <img
+                    src={getAICoreLogoForIndex(index)}
+                    alt={`${productFamily} Product`}
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
                 )}
               </div>
-            )}
+              <p className="text-sm text-gray-300 mb-4">{getImageContent(index).description}</p>
+              <div className="relative">
+                <img
+                  src={image.path}
+                  alt={image.name}
+                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg"
+                  style={{ aspectRatio: 'auto' }}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = productImage;
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
 
-            {activeTab === 'documents' && (
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-6">Documents</h3>
-                {content.documents.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-96 bg-[#001f33]/50 border border-white/10 rounded-lg">
-                    <div className="text-center">
-                      <FileText size={64} className="mx-auto mb-4 text-gray-500" />
-                      <p className="text-gray-400">No documents available</p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    {content.documents.map((documentGroup, groupIndex) => {
-                      const currentPageIndex = documentIndices[groupIndex] || 0;
-                      const currentPage = documentGroup.pages[currentPageIndex];
-                      
-                      const nextPage = () => {
-                        const newIndex = (currentPageIndex + 1) % documentGroup.pages.length;
-                        updateDocumentIndex(groupIndex, newIndex);
-                      };
-                      
-                      const prevPage = () => {
-                        const newIndex = (currentPageIndex - 1 + documentGroup.pages.length) % documentGroup.pages.length;
-                        updateDocumentIndex(groupIndex, newIndex);
-                      };
-
-                      return (
-                        <div key={groupIndex} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-                          <h4 className="text-lg font-semibold text-[#ffb81c] capitalize mb-2">
-                            {documentGroup.name}
-                          </h4>
-                          <p className="text-sm text-gray-300 mb-4">{getDocumentDescription(groupIndex)}</p>
-                          <div className="relative">
-                            <img
-                              src={currentPage.path}
-                              alt={currentPage.name}
-                              className="w-full max-h-96 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = productImage;
-                              }}
-                            />
-                            <button
-                              onClick={toggleFullscreen}
-                              className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                              title="View fullscreen"
-                            >
-                              <Maximize2 size={16} color="white" />
-                            </button>
-                            {documentGroup.pages.length > 1 && (
-                              <>
-                                <button
-                                  onClick={prevPage}
-                                  className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                                >
-                                  <ChevronLeft size={16} color="white" />
-                                </button>
-                                <button
-                                  onClick={nextPage}
-                                  className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                                >
-                                  <ChevronRight size={16} color="white" />
-                                </button>
-                              </>
-                            )}
-                          </div>
-                          <div className="flex justify-between items-center mt-3">
-                            <span className="text-sm text-gray-400">
-                              Page {currentPageIndex + 1} of {documentGroup.pages.length}
-                            </span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+    // Special handling for videos - show all videos stacked vertically
+    if (activeTab === 'videos') {
+      return (
+        <div className="space-y-4">
+          {content.videos.map((video, index) => (
+            <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-2">
+                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
+                  <img
+                    src={getAICoreLogoForIndex(index)}
+                    alt={`${productFamily} Product`}
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
                 )}
               </div>
+              <p className="text-sm text-gray-300 mb-4">{getVideoContent(index).description}</p>
+              <div className="relative">
+                <video
+                  src={video.path}
+                  controls={false}
+                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                  style={{ aspectRatio: 'auto' }}
+                  onClick={() => {
+                    setSelectedMediaIndex(index);
+                    toggleFullscreen();
+                  }}
+                  onError={(e) => {
+                    const target = e.target as HTMLVideoElement;
+                    // Hide the video element and show a fallback message
+                    target.style.display = 'none';
+                    
+                    // Check if fallback already exists to prevent duplicates
+                    const existingFallback = target.parentNode?.querySelector('.video-error-fallback');
+                    if (!existingFallback) {
+                      const fallback = document.createElement('div');
+                      fallback.className = 'video-error-fallback flex items-center justify-center min-h-48 bg-[#001f33]/30 border border-white/10 rounded-lg';
+                      fallback.innerHTML = '<p class="text-gray-400">Video not available</p>';
+                      target.parentNode?.appendChild(fallback);
+                    }
+                  }}
+                />
+                {/* Play Icon Overlay */}
+                <div 
+                  className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                  style={{ paddingBottom: '20px' }}
+                  onClick={() => {
+                    setSelectedMediaIndex(index);
+                    toggleFullscreen();
+                  }}
+                >
+                  <Play 
+                    size={32} 
+                    className="text-white ml-1 drop-shadow-lg" 
+                    fill="white"
+                    style={{ 
+                      filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8))'
+                    }}
+                  />
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedMediaIndex(index);
+                    toggleFullscreen();
+                  }}
+                  className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                  title="View fullscreen"
+                >
+                  <Maximize2 size={16} color="white" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // Special handling for documents - show all documents stacked vertically
+    // Documents are now handled by renderDocumentSliders()
+
+    return null;
+  };
+
+  const getTabIcon = (tab: string) => {
+    switch (tab) {
+      case 'presentations':
+        return <Presentation size={16} />;
+      case 'images':
+        return <ImageIcon size={16} />;
+      case 'videos':
+        return <Video size={16} />;
+      case 'documents':
+        return <FileText size={16} />;
+      default:
+        return null;
+    }
+  };
+
+  const getTabCount = (tab: string) => {
+    switch (tab) {
+      case 'presentations':
+        return content.presentations.length;
+      case 'images':
+        return content.images.length;
+      case 'videos':
+        return content.videos.length;
+      case 'documents':
+        return content.documents.length;
+      default:
+        return 0;
+    }
+  };
+
+  const getTotalMediaCount = () => {
+    const presentationCount = content.presentations.length;
+    const documentCount = content.documents.length;
+    return presentationCount + content.images.length + content.videos.length + documentCount;
+  };
+
+  return (
+    <>
+      {/* Main Modal */}
+    <div className={`fixed top-0 right-0 h-full w-1/4 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
+      isOpen ? 'translate-x-0' : 'translate-x-full'
+    }`}>
+      <div className="h-full flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-white/20">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 transition-colors z-10"
+            style={{ color: 'white' }}
+          >
+            <X size={20} />
+          </button>
+          <div>
+            <img
+              src={productImage}
+              alt={familyDisplayNames[productFamily] || productFamily}
+             className="h-6 object-contain mb-2"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+               target.src = './images/logo.png';
+              }}
+            />
+            <p className="text-lg text-gray-300">{productName}</p>
+            {getTotalMediaCount() > 0 && (
+              <p className="text-sm" style={{ color: '#ffb81c' }}>{getTotalMediaCount()} media files available</p>
             )}
           </div>
         </div>
-      </div>
 
-      {/* Fullscreen Modal */}
+        {/* Tabs */}
+        <div className="border-b border-white/20 flex-shrink-0">
+          <div className="flex overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          {['overview', 'presentations', 'images', 'videos', 'documents'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => {
+                setActiveTab(tab as any);
+                setSelectedMediaIndex(0);
+              }}
+              className={`flex items-center justify-center space-x-1 px-2 py-3 border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${
+                activeTab === tab
+                  ? 'border-[#ffb81c]'
+                  : 'border-transparent text-gray-400'
+              }`}
+              style={activeTab === tab ? { color: '#ffb81c' } : {}}
+              title={tab.charAt(0).toUpperCase() + tab.slice(1)}
+            >
+              {tab === 'overview' ? (
+                <span className="text-xs font-medium">Overview</span>
+              ) : (
+                <div className="flex items-center space-x-1">
+                  {getTabIcon(tab)}
+                  {tab !== 'overview' && getTabCount(tab) > 0 && (
+                    <span className={`text-xs px-1 py-0.5 rounded-full flex-shrink-0 ${
+                      getTabCount(tab) > 0 
+                        ? 'bg-[#ffb81c]/20 border border-[#ffb81c]/40' 
+                        : 'bg-gray-700 text-gray-400'
+                    }`}
+                      style={getTabCount(tab) > 0 ? { color: '#ffb81c' } : {}}
+                    >
+                      {getTabCount(tab)}
+                    </span>
+                  )}
+                </div>
+              )}
+            </button>
+          ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 p-6 overflow-y-auto popup-scrollbar">
+          {loading ? (
+            <div className="flex items-center justify-center h-96">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderBottomColor: '#ffb81c' }}></div>
+                <p className="text-gray-400">{contentConfig.general.loadingMessage}</p>
+              </div>
+            </div>
+          ) : activeTab === 'overview' ? (
+            <div className="space-y-6">
+              {overviewImage !== productImage && (
+                <img
+                  src={overviewImage}
+                  alt={productName}
+                  className="w-full object-contain bg-gray-100 rounded-lg"
+                  style={{ aspectRatio: 'auto' }}
+                />
+              )}
+              <div>
+                <h3 className="text-xl font-semibold mb-3 text-white">Overview</h3>
+                {(() => {
+                  const familyInfo = getProductFamilyInfo(productFamily);
+                  return (
+                    <p className="text-gray-300 leading-relaxed">
+                      {familyInfo.overviewDescription}
+                    </p>
+                  );
+                })()}
+              </div>
+              {getTotalMediaCount() === 0 && (
+                <div className="bg-[#001f33]/50 border border-white/10 p-6 rounded-lg text-center">
+                  <div className="text-gray-500 mb-3">
+                    <FileText size={48} className="mx-auto" />
+                  </div>
+                  <h4 className="font-semibold text-gray-300 mb-2">No Media Files Yet</h4>
+                  <p className="text-gray-400 text-sm">{contentConfig.general.noMediaMessage}</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            renderMediaViewer()
+          )}
+        </div>
+      </div>
+    </div>
+
+      {/* Fullscreen Overlay - Rendered at root level to cover entire screen */}
       {isFullscreen && currentMedia && (
-        <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[999999]">
+        <div 
+          className="fixed inset-0 bg-black/90 flex items-center justify-center"
+          style={{ 
+            zIndex: 999999,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh'
+          }}
+        >
           <button
             onClick={toggleFullscreen}
-            className="absolute top-6 right-6 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg text-white text-2xl hover:bg-[#001f33]/95"
+            className="absolute top-6 right-6 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg z-10 hover:bg-[#001f33]/95"
           >
-            ×
+            <X size={20} color="white" />
           </button>
           
-          {currentMedia.type === 'image' || currentMedia.type === 'presentation' || currentMedia.type === 'document' ? (
-            <img
-              src={currentMedia.path}
-              alt={currentMedia.name}
-              className="max-w-full max-h-full object-contain"
-            />
-          ) : currentMedia.type === 'video' ? (
-            <video
-              src={currentMedia.path}
-              controls
-              autoPlay
-              className="max-w-full max-h-full object-contain"
-            />
-          ) : null}
+          {/* Media Content */}
+          <div className="w-full h-full flex items-center justify-center p-12">
+            {currentMedia.path.toLowerCase().endsWith('.pdf') ? (
+              <div className="bg-white rounded-lg p-4 max-w-4xl max-h-full overflow-auto">
+                <Document
+                  file={currentMedia.path}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  onLoadError={onDocumentLoadError}
+                  loading={
+                    <div className="flex items-center justify-center h-96">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ffb81c]"></div>
+                    </div>
+                  }
+                >
+                  {!pdfError && (
+                    <Page
+                      pageNumber={pageNumber}
+                      width={Math.min(800, window.innerWidth * 0.8)}
+                      renderTextLayer={true}
+                      renderAnnotationLayer={true}
+                    />
+                  )}
+                </Document>
+                {pdfError && (
+                  <div className="flex items-center justify-center h-96">
+                    <div className="text-center">
+                      <FileText size={64} className="mx-auto mb-4 text-gray-400" />
+                      <p className="text-gray-600 text-xl">Unable to load PDF</p>
+                      <p className="text-gray-500">{currentMedia.name}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : currentMedia.type === 'video' ? (
+              <video
+                src={currentMedia.path}
+                controls={true}
+                autoPlay
+                className="w-full h-full object-contain"
+                style={{ aspectRatio: 'auto' }}
+              />
+            ) : (
+              <img
+                src={currentMedia.path}
+                alt={currentMedia.name}
+                className="w-full h-full object-contain"
+                style={{ aspectRatio: 'auto' }}
+              />
+            )}
+          </div>
           
-          {currentMediaList.length > 1 && (
+          {/* Navigation for multiple media items */}
+          {(currentMediaList.length > 1 || (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1)) && (
             <>
               <button
-                onClick={prevMedia}
-                className="absolute left-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg hover:bg-[#001f33]/95"
+                onClick={() => {
+                  if (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1) {
+                    setPageNumber(page => Math.max(1, page - 1));
+                  } else {
+                    prevMedia();
+                  }
+                }}
+                className="absolute left-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
               >
                 <ChevronLeft size={24} color="white" />
               </button>
               <button
-                onClick={nextMedia}
-                className="absolute right-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-lg hover:bg-[#001f33]/95"
+                onClick={() => {
+                  if (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1) {
+                    setPageNumber(page => Math.min(numPages, page + 1));
+                  } else {
+                    nextMedia();
+                  }
+                }}
+                className="absolute right-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
               >
                 <ChevronRight size={24} color="white" />
               </button>
             </>
           )}
           
-          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-center">
-            <p className="text-lg font-semibold">{currentMedia.name}</p>
-            <p className="text-sm text-gray-300">
-              {selectedMediaIndex + 1} of {currentMediaList.length}
-            </p>
-          </div>
+          {/* Media counter */}
+          {currentMediaList.length > 1 && !currentMedia.path.toLowerCase().endsWith('.pdf') && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-[#001f33]/90 border border-white/20 px-4 py-2 rounded-sm text-lg font-medium shadow-lg text-white">
+              {selectedMediaIndex + 1} / {currentMediaList.length}
+            </div>
+          )}
+          
+          {/* PDF page counter */}
+          {currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1 && (
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-[#001f33]/90 border border-white/20 px-4 py-2 rounded-sm text-lg font-medium shadow-lg text-white">
+              Page {pageNumber} / {numPages}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
