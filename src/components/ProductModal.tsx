@@ -509,4 +509,4 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     <>
                       <button
                         onClick={prevSlide}
-                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
