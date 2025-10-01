@@ -166,6 +166,51 @@ export const contentConfig: ContentConfig = {
   }
 };
 
+// Product Logos Configuration - Easy to adapt individual logos
+export const PRODUCT_LOGOS = {
+  // AI-Core Platform Logos (6 logos cycling)
+  'ai-core': [
+    './products/ai-core/main/0-logos/AId-min.png',        // 0: AId logo
+    './products/ai-core/main/0-logos/Agentic-min.png',    // 1: Agentic logo
+    './products/ai-core/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
+    './products/ai-core/main/0-logos/Meta-min.png',       // 3: Meta logo
+    './products/ai-core/main/0-logos/OneAI-min.png',      // 4: OneAI logo
+    './products/ai-core/main/0-logos/TestAId-min.png'     // 5: TestAId logo
+  ],
+  // NetComm Validation Logos (1 logo)
+  'netcomm': [
+    './products/netcomm/main/0-logos/NTS_rgb_white_name-web.png'  // 0: NetComm logo
+  ],
+  // PROVEtech Tool Suite Logos (fallback to main logo)
+  'provetech': [
+    './products/provetech/PROVEtech.png'  // 0: PROVEtech main logo
+  ],
+  // Energy Solutions Logos (6 logos cycling - reusing AI-Core structure)
+  'energy-solutions': [
+    './products/energy-solutions/main/0-logos/AId-min.png',        // 0: AId logo
+    './products/energy-solutions/main/0-logos/Agentic-min.png',    // 1: Agentic logo
+    './products/energy-solutions/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
+    './products/energy-solutions/main/0-logos/Meta-min.png',       // 3: Meta logo
+    './products/energy-solutions/main/0-logos/OneAI-min.png',      // 4: OneAI logo
+    './products/energy-solutions/main/0-logos/TestAId-min.png'     // 5: TestAId logo
+  ],
+  // Gigaboxes Logos (fallback to main logo)
+  'gigaboxes': [
+    './products/gigaboxes/Gigaboxes.png'  // 0: Gigaboxes main logo
+  ]
+};
+
+// Helper function to get product logo for a specific index
+export const getProductLogoForIndex = (familyId: string, index: number): string => {
+  const logos = PRODUCT_LOGOS[familyId as keyof typeof PRODUCT_LOGOS];
+  if (!logos || logos.length === 0) {
+    // Fallback to main product family image
+    return contentConfig.productFamilies[familyId]?.image || './images/logo.png';
+  }
+  // Cycle through available logos
+  return logos[index % logos.length];
+};
+
 // Helper functions for easy content access
 export const getProductFamilyInfo = (familyId: string) => {
   return contentConfig.productFamilies[familyId] || {
