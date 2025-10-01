@@ -901,7 +901,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
   };
 
   return (
-    <div className="fixed top-0 right-0 h-full w-1/5 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-y-auto popup-scrollbar">
+    <div className="fixed top-0 right-0 h-full w-1/3 backdrop-blur-md bg-[#001f33]/95 border-l border-white/20 shadow-2xl z-50 overflow-y-auto popup-scrollbar">
       <div className="h-full flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/10">
