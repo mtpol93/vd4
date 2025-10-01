@@ -588,7 +588,7 @@ function App() {
                   <img
                     src="./products/ai-core/AI-Core Platform copy copy.png"
                     alt="AI-Core"
-                    className="w-12 h-12 object-contain"
+                    className="w-12 h-12 object-contain rounded-lg"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = './images/logo.png';

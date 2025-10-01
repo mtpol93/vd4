@@ -89,82 +89,82 @@ export const contentConfig: ContentConfig = {
   mediaContent: {
     images: {
       titles: [
-        'Advanced System Architecture Overview',
-        'Real-time Performance Dashboard',
-        'Integrated Control Interface',
-        'Comprehensive Analytics Platform',
-        'Intelligent Monitoring System',
-        'Automated Workflow Management',
-        'Predictive Maintenance Interface',
-        'Quality Assurance Framework',
-        'Security Management Console',
-        'Operational Excellence Dashboard',
-        'Strategic Implementation View',
-        'Performance Optimization Tools',
-        'Advanced Configuration Panel',
-        'System Integration Overview',
-        'Comprehensive Reporting Suite'
+        'Lorem Ipsum Dolor Sit Amet Image 1',
+        'Consectetur Adipiscing Elit Image 2',
+        'Sed Do Eiusmod Tempor Image 3',
+        'Incididunt Ut Labore Image 4',
+        'Et Dolore Magna Aliqua Image 5',
+        'Ut Enim Ad Minim Image 6',
+        'Veniam Quis Nostrud Image 7',
+        'Exercitation Ullamco Laboris Image 8',
+        'Nisi Ut Aliquip Ex Image 9',
+        'Ea Commodo Consequat Image 10',
+        'Duis Aute Irure Dolor Image 11',
+        'In Reprehenderit Voluptate Image 12',
+        'Velit Esse Cillum Image 13',
+        'Dolore Eu Fugiat Image 14',
+        'Nulla Pariatur Excepteur Image 15'
       ],
       descriptions: [
-        'Detailed visualization showcasing the comprehensive system architecture and core components that drive operational excellence.',
-        'Interactive dashboard providing real-time insights into system performance, key metrics, and operational status indicators.',
-        'Intuitive control interface designed for seamless user interaction and efficient system management across all operational levels.',
-        'Advanced analytics platform delivering deep insights through sophisticated data processing and intelligent reporting capabilities.',
-        'Comprehensive monitoring system providing continuous oversight of critical parameters and automated alert mechanisms.',
-        'Streamlined workflow management interface enabling efficient process automation and optimized operational sequences.',
-        'Predictive maintenance dashboard utilizing advanced algorithms to forecast system needs and prevent operational disruptions.',
-        'Robust quality assurance framework ensuring consistent performance standards and compliance with industry regulations.',
-        'Centralized security management console providing comprehensive protection and monitoring of all system components.',
-        'Operational excellence dashboard highlighting key performance indicators and strategic metrics for informed decision-making.',
-        'Strategic implementation overview demonstrating successful deployment methodologies and best practices.',
-        'Advanced performance optimization tools designed to maximize efficiency and minimize operational overhead.',
-        'Comprehensive configuration panel enabling precise system customization and parameter adjustment capabilities.',
-        'System integration overview showcasing seamless connectivity and interoperability across diverse platforms.',
-        'Detailed reporting suite providing comprehensive documentation and analysis of all operational aspects.'
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.',
+        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.',
+        'Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore cum soluta nobis est eligendi optio.',
+        'Cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe.',
+        'Eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores.',
+        'Repellat enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est qui dolorem.',
+        'Ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem ut enim ad minima veniam.',
+        'Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.',
+        'Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.',
+        'Sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.',
+        'Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.',
+        'Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.',
+        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa.'
       ]
     },
     videos: {
       titles: [
-        'Complete System Demonstration',
-        'Advanced Feature Walkthrough',
-        'Implementation Best Practices',
-        'Performance Optimization Guide',
-        'Comprehensive Training Overview',
-        'Integration Methodology Demo',
-        'Troubleshooting and Maintenance',
-        'Security Configuration Guide',
-        'Workflow Automation Tutorial',
-        'Advanced Analytics Showcase'
+        'Lorem Ipsum Video Demonstration 1',
+        'Consectetur Adipiscing Video 2',
+        'Sed Do Eiusmod Video Tutorial 3',
+        'Incididunt Ut Labore Video 4',
+        'Et Dolore Magna Video Guide 5',
+        'Ut Enim Ad Minim Video 6',
+        'Veniam Quis Nostrud Video 7',
+        'Exercitation Ullamco Video 8',
+        'Nisi Ut Aliquip Video Demo 9',
+        'Ea Commodo Consequat Video 10'
       ],
       descriptions: [
-        'Comprehensive video demonstration showcasing complete system capabilities, key features, and practical implementation scenarios.',
-        'In-depth walkthrough of advanced features and functionalities, highlighting innovative capabilities and user benefits.',
-        'Detailed guide covering implementation best practices, deployment strategies, and optimization techniques for maximum effectiveness.',
-        'Performance optimization tutorial demonstrating advanced techniques for system tuning and efficiency improvements.',
-        'Complete training overview providing comprehensive education on system operation, maintenance, and advanced usage scenarios.',
-        'Integration methodology demonstration showing seamless connectivity with existing systems and third-party platforms.',
-        'Comprehensive troubleshooting guide covering common issues, maintenance procedures, and preventive care strategies.',
-        'Security configuration tutorial ensuring robust protection and compliance with industry security standards.',
-        'Workflow automation demonstration highlighting process optimization and intelligent task management capabilities.',
-        'Advanced analytics showcase demonstrating powerful data processing, visualization, and insight generation capabilities.'
+        'Lorem ipsum dolor sit amet video content, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+        'Duis aute irure dolor video tutorial in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.',
+        'Sed ut perspiciatis video demonstration unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.',
+        'At vero eos video guide et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.',
+        'Similique sunt video training in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore.',
+        'Cumque nihil video tutorial impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis.',
+        'Ut et voluptates video demo repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur.',
+        'Nam libero video showcase tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.',
+        'Temporibus autem video walkthrough quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae itaque earum.',
+        'Ut aut reiciendis video presentation voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.'
       ]
     },
     presentations: {
       descriptions: [
-        'Comprehensive presentation covering technical specifications, implementation strategies, and practical applications with detailed analysis.',
-        'Strategic overview presentation highlighting key benefits, competitive advantages, and successful deployment case studies.',
-        'Technical deep-dive presentation exploring advanced features, architectural components, and integration possibilities.',
-        'Implementation roadmap presentation outlining deployment phases, timeline considerations, and success metrics.',
-        'Performance analysis presentation demonstrating measurable improvements, efficiency gains, and ROI calculations.'
+        'Lorem ipsum presentation dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
+        'Duis aute irure presentation dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
+        'Sed ut perspiciatis presentation unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.',
+        'At vero eos presentation et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.',
+        'Similique sunt presentation in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore.'
       ]
     },
     documents: {
       descriptions: [
-        'Comprehensive technical documentation providing detailed specifications, implementation guidelines, and operational procedures.',
-        'Strategic planning document outlining deployment strategies, best practices, and success criteria for optimal implementation.',
-        'Advanced configuration guide covering system customization, parameter optimization, and integration requirements.',
-        'Quality assurance documentation ensuring compliance with industry standards and regulatory requirements.',
-        'Maintenance and support documentation providing comprehensive guidance for ongoing system care and optimization.'
+        'Lorem ipsum document dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.',
+        'Duis aute irure document dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
+        'Sed ut perspiciatis document unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi.',
+        'At vero eos document et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.',
+        'Similique sunt document in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero tempore.'
       ]
     }
   },
