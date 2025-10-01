@@ -885,4 +885,4 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     if (!existingFallback) {
                       const fallback = document.createElement('div');
                       fallback.className = 'video-error-fallback flex items-center justify-center min-h-48 bg-[#001f33]/30 border border-white/10 rounded-lg';
-                      fallback.innerHTML = '
+                      fallback.innerHTML = '<p class="text-gray-400 text-sm">Video preview not available</p>';
