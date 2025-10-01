@@ -162,47 +162,6 @@ export const contentConfig: ContentConfig = {
 };
 
 // Helper functions for easy content access
-export const getImageContent = (familyId: string, index: number) => {
-  const family = contentConfig.productFamilies[familyId];
-  if (!family || !family.media.images[index]) {
-    return {
-      title: 'System Overview',
-      description: 'Comprehensive system visualization and interface overview.',
-      filename: `image${index + 1}.jpg`
-    };
-  }
-  return family.media.images[index];
-};
-
-export const getVideoContent = (familyId: string, index: number) => {
-  const family = contentConfig.productFamilies[familyId];
-  if (!family || !family.media.videos[index]) {
-    return {
-      title: 'System Demonstration',
-      description: 'Comprehensive system demonstration and feature overview.',
-      filename: `video${index + 1}.mp4`
-    };
-  }
-  return family.media.videos[index];
-};
-
-export const getPresentationDescription = (familyId: string, index: number) => {
-  const family = contentConfig.productFamilies[familyId];
-  if (!family || !family.media.presentations[index]) {
-    return 'Comprehensive presentation covering technical specifications and implementation strategies.';
-  }
-  return family.media.presentations[index].description;
-};
-
-export const getDocumentDescription = (familyId: string, index: number) => {
-  const family = contentConfig.productFamilies[familyId];
-  if (!family || !family.media.documents[index]) {
-    return 'Comprehensive technical documentation providing detailed specifications and guidelines.';
-  }
-  return family.media.documents[index].description;
-};
-
-// Helper functions for easy content access
 export const getProductFamilyInfo = (familyId: string) => {
   return contentConfig.productFamilies[familyId] || {
     name: familyId,
