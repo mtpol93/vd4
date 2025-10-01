@@ -96,56 +96,6 @@ const familyDisplayNames: Record<string, string> = {
   'energy-solutions': 'Energy Solutions'
 };
 
-// Product Logos Configuration - Easy to adapt individual logos
-const PRODUCT_LOGOS = {
-  // AI-Core Platform Logos (6 logos cycling)
-  'ai-core': [
-    './products/ai-core/main/0-logos/Agentic-min.png',    // 0: Agentic logo
-    './products/ai-core/main/0-logos/AId-min.png',        // 1: AId logo
-    './products/ai-core/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
-    './products/ai-core/main/0-logos/Meta-min.png',       // 3: Meta logo
-    './products/ai-core/main/0-logos/OneAI-min.png',      // 4: OneAI logo
-    './products/ai-core/main/0-logos/TestAId-min.png'     // 5: TestAId logo
-  ],
-  
-  // Energy Solutions Logos (using AI-Core logos)
-  'energy-solutions': [
-    './products/energy-solutions/main/0-logos/Agentic-min.png',    // 0: Agentic logo
-    './products/energy-solutions/main/0-logos/AId-min.png',        // 1: AId logo
-    './products/energy-solutions/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
-    './products/energy-solutions/main/0-logos/Meta-min.png',       // 3: Meta logo
-    './products/energy-solutions/main/0-logos/OneAI-min.png',      // 4: OneAI logo
-    './products/energy-solutions/main/0-logos/TestAId-min.png'     // 5: TestAId logo
-  ],
-  
-  // NetComm Validation Logos (using AI-Core logos)
-  'netcomm': [
-    './products/netcomm/main/0-logos/Agentic-min.png',    // 0: Agentic logo
-    './products/netcomm/main/0-logos/AId-min.png',        // 1: AId logo
-    './products/netcomm/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
-    './products/netcomm/main/0-logos/Meta-min.png',       // 3: Meta logo
-    './products/netcomm/main/0-logos/OneAI-min.png',      // 4: OneAI logo
-    './products/netcomm/main/0-logos/TestAId-min.png'     // 5: TestAId logo
-  ],
-  
-  // PROVEtech Tool Suite Logos (using AI-Core logos)
-  'provetech': [
-    './products/provetech/main/0-logos/Agentic-min.png',    // 0: Agentic logo
-    './products/provetech/main/0-logos/AId-min.png',        // 1: AId logo
-    './products/provetech/main/0-logos/ChatNow-min.png',    // 2: ChatNow logo
-    './products/provetech/main/0-logos/Meta-min.png',       // 3: Meta logo
-    './products/provetech/main/0-logos/OneAI-min.png',      // 4: OneAI logo
-    './products/provetech/main/0-logos/TestAId-min.png'     // 5: TestAId logo
-  ]
-};
-
-// Helper function to get logo for specific index and product family
-const getProductLogo = (productFamily: string, index: number): string => {
-  const logos = PRODUCT_LOGOS[productFamily as keyof typeof PRODUCT_LOGOS];
-  if (!logos || logos.length === 0) return '';
-  return logos[index % logos.length];
-};
-
 interface MediaFile {
   name: string;
   path: string;
@@ -642,10 +592,10 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             <div key={groupIndex} className="space-y-3">
               <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                 <div className="flex items-center space-x-3 mb-2">
-                  {(PRODUCT_LOGOS[productFamily as keyof typeof PRODUCT_LOGOS]) && (
+                  {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm' || productFamily === 'provetech') && (
                     <img
-                      src={getProductLogo(productFamily, groupIndex)}
-                      alt={`${getProductFamilyInfo(productFamily).name} logo`}
+                      src={getProductLogoForIndex(productFamily, groupIndex)}
+                      alt={`${productFamily} Product`}
                       className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
@@ -1178,6 +1128,49 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             ) : currentMedia.type === 'video' ? (
               <video
                 src={currentMedia.path}
+                controls={true}
+                autoPlay
+                className="w-full h-full object-contain"
+                style={{ aspectRatio: 'auto' }}
+              />
+            ) : (
+              <img
+                src={currentMedia.path}
+                alt={currentMedia.name}
+                className="w-full h-full object-contain"
+                style={{ aspectRatio: 'auto' }}
+              />
+            )}
+          </div>
+          
+          {/* Navigation for multiple media items */}
+          {(currentMediaList.length > 1 || (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1)) && (
+            <>
+              <button
+                onClick={() => {
+                  if (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1) {
+                    setPageNumber(page => Math.max(1, page - 1));
+                  } else {
+                    prevMedia();
+                  }
+                }}
+                className="absolute left-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+              >
+                <ChevronLeft size={24} color="white" />
+              </button>
+              <button
+                onClick={() => {
+                  if (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1) {
+                    setPageNumber(page => Math.min(numPages, page + 1));
+                  } else {
+                    nextMedia();
+                  }
+                }}
+                className="absolute right-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+              >
+                <ChevronRight size={24} color="white" />
+              </button>
+            </>
           )}
           
           {/* Media counter */}
