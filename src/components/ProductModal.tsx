@@ -135,7 +135,9 @@ const getProductContent = (productFamily: string, productName: string): ProductC
       ]
     },
     'netcomm': {
-      'NetComm Validation': []
+      'NetComm Validation': [
+        'main/2-images/image1.jpg', 'main/2-images/image2.jpg', 'main/2-images/image3.webp'
+      ]
     },
     'provetech': {
       'PROVEtech Tool Suite': []
