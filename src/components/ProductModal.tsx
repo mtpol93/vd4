@@ -115,7 +115,7 @@ const getProductContent = (productFamily: string, productName: string): ProductC
   const basePath = productFamily === 'akkodis-main' ? './products/akkodis' : `./products/${productFamily}`;
   
   // Consolidated presentations for main products
-  const presentationFiles: Record<string, Record<string, { folder: string; files: string[] }[]>> = {
+  const presentationFiles: Record<string, Record<string, { folder: string; files: string[]; name?: string }[]>> = {
     'akkodis-main': {
       'Akkodis Main': [
         { folder: 'main/1-presentation/presentation1', files: ['Slide1.PNG', 'Slide2.PNG', 'Slide3.PNG'], name: '20250805_Akkodis' }
@@ -886,3 +886,191 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                       const fallback = document.createElement('div');
                       fallback.className = 'video-error-fallback flex items-center justify-center min-h-48 bg-[#001f33]/30 border border-white/10 rounded-lg';
                       fallback.innerHTML = '<p class="text-gray-400 text-sm">Video preview not available</p>';
+                      target.parentNode?.appendChild(fallback);
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-[#001f33]/95 border border-white/20 rounded-lg w-full max-w-6xl max-h-[90vh] overflow-hidden shadow-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-white/10">
+          <div className="flex items-center space-x-4">
+            <img
+              src={productImage}
+              alt={productName}
+              className="w-12 h-12 object-cover rounded-lg border border-white/20"
+            />
+            <div>
+              <h2 className="text-2xl font-bold text-white">{productName}</h2>
+              <p className="text-[#ffb81c] text-sm">{familyDisplayNames[productFamily] || productFamily}</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-10 h-10 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 transition-colors"
+          >
+            <X size={20} color="white" />
+          </button>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex border-b border-white/10 bg-[#001f33]/50">
+          {[
+            { id: 'overview', label: 'Overview', icon: '📋' },
+            { id: 'presentations', label: 'Presentations', icon: '📊' },
+            { id: 'images', label: 'Images', icon: '🖼️' },
+            { id: 'videos', label: 'Videos', icon: '🎥' },
+            { id: 'documents', label: 'Documents', icon: '📄' }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                activeTab === tab.id
+                  ? 'text-[#ffb81c] border-[#ffb81c] bg-[#001f33]/70'
+                  : 'text-gray-300 border-transparent hover:text-white hover:bg-[#001f33]/30'
+              }`}
+            >
+              <span className="mr-2">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+          {loading ? (
+            <div className="flex items-center justify-center h-96">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ffb81c]"></div>
+            </div>
+          ) : activeTab === 'overview' ? (
+            <div className="space-y-6">
+              <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-[#ffb81c] mb-4">Product Overview</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <img
+                      src={overviewImage}
+                      alt={`${productName} Overview`}
+                      className="w-full h-64 object-cover rounded-lg border border-white/10"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = productImage;
+                      }}
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Product Family</h4>
+                      <p className="text-gray-300">{familyDisplayNames[productFamily] || productFamily}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Description</h4>
+                      <p className="text-gray-300">
+                        {getProductFamilyInfo(productFamily).description}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-medium text-white mb-2">Available Content</h4>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div className="flex items-center space-x-2">
+                          <span>📊</span>
+                          <span className="text-gray-300">{content.presentations.length} Presentations</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span>🖼️</span>
+                          <span className="text-gray-300">{content.images.length} Images</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span>🎥</span>
+                          <span className="text-gray-300">{content.videos.length} Videos</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span>📄</span>
+                          <span className="text-gray-300">{content.documents.length} Documents</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            renderMediaViewer()
+          )}
+        </div>
+      </div>
+
+      {/* Fullscreen Modal */}
+      {isFullscreen && currentMedia && (
+        <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-60">
+          <button
+            onClick={toggleFullscreen}
+            className="absolute top-4 right-4 w-10 h-10 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 z-10"
+          >
+            <X size={20} color="white" />
+          </button>
+          
+          {currentMediaList.length > 1 && (
+            <>
+              <button
+                onClick={prevMedia}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 z-10"
+              >
+                <ChevronLeft size={24} color="white" />
+              </button>
+              <button
+                onClick={nextMedia}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-lg flex items-center justify-center hover:bg-[#001f33]/95 z-10"
+              >
+                <ChevronRight size={24} color="white" />
+              </button>
+            </>
+          )}
+
+          <div className="w-full h-full flex items-center justify-center p-8">
+            {currentMedia.type === 'video' ? (
+              <video
+                src={currentMedia.path}
+                controls
+                autoPlay
+                className="max-w-full max-h-full object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLVideoElement;
+                  console.error('Video failed to load:', currentMedia.path);
+                }}
+              />
+            ) : (
+              <img
+                src={currentMedia.path}
+                alt={currentMedia.name}
+                className="max-w-full max-h-full object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = productImage;
+                }}
+              />
+            )}
+          </div>
+
+          {currentMediaList.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-[#001f33]/90 border border-white/20 px-4 py-2 rounded-lg text-white">
+              {selectedMediaIndex + 1} / {currentMediaList.length}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
