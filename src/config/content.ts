@@ -65,6 +65,11 @@ export const contentConfig: ContentConfig = {
       name: 'Energy Solutions',
       description: 'Sustainable energy management platform optimizing power distribution, renewable integration, and energy efficiency across industrial and commercial applications.',
       overviewDescription: 'Our Energy Solutions platform addresses the critical need for sustainable and efficient energy management in modern industrial operations. Through advanced monitoring, intelligent distribution systems, and renewable energy integration, we help organizations reduce their carbon footprint while optimizing energy costs and reliability.'
+    },
+    'gigaboxes': {
+      name: 'Gigaboxes',
+      description: 'Advanced modular storage and processing solutions providing scalable infrastructure for high-performance computing and data management applications.',
+      overviewDescription: 'Gigaboxes represents our cutting-edge approach to modular infrastructure solutions. These high-performance units deliver exceptional processing power, storage capacity, and networking capabilities in compact, scalable configurations designed for demanding industrial and enterprise environments.'
     }
   },
 
