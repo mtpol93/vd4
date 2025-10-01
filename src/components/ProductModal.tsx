@@ -1178,49 +1178,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             ) : currentMedia.type === 'video' ? (
               <video
                 src={currentMedia.path}
-                controls={true}
-                autoPlay
-                className="w-full h-full object-contain"
-                style={{ aspectRatio: 'auto' }}
-              />
-            ) : (
-              <img
-                src={currentMedia.path}
-                alt={currentMedia.name}
-                className="w-full h-full object-contain"
-                style={{ aspectRatio: 'auto' }}
-              />
-            )}
-          </div>
-          
-          {/* Navigation for multiple media items */}
-          {(currentMediaList.length > 1 || (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1)) && (
-            <>
-              <button
-                onClick={() => {
-                  if (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1) {
-                    setPageNumber(page => Math.max(1, page - 1));
-                  } else {
-                    prevMedia();
-                  }
-                }}
-                className="absolute left-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-              >
-                <ChevronLeft size={24} color="white" />
-              </button>
-              <button
-                onClick={() => {
-                  if (currentMedia.path.toLowerCase().endsWith('.pdf') && numPages && numPages > 1) {
-                    setPageNumber(page => Math.min(numPages, page + 1));
-                  } else {
-                    nextMedia();
-                  }
-                }}
-                className="absolute right-6 top-1/2 transform -translate-y-1/2 w-12 h-12 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-              >
-                <ChevronRight size={24} color="white" />
-              </button>
-            </>
           )}
           
           {/* Media counter */}
