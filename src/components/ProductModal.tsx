@@ -4,7 +4,10 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { 
   contentConfig, 
   getProductFamilyInfo, 
-  getFamilyMedia 
+  getImageContent, 
+  getVideoContent, 
+  getPresentationDescription, 
+  getDocumentDescription 
 } from '../config/content';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -233,16 +236,12 @@ const getProductContent = (productFamily: string, productName: string): ProductC
     }
   };
 
-  // Get product family info
-  const familyInfo = getProductFamilyInfo(productFamily);
-  const familyMedia = getFamilyMedia(productFamily);
-
   // Custom titles for images and videos
   const getCustomContent = (index: number, type: 'image' | 'video') => {
     if (type === 'image') {
-      return familyMedia.images[index] || { title: `Image ${index + 1}`, description: 'Image description' };
+      return getImageContent(index);
     } else {
-      return familyMedia.videos[index] || { title: `Video ${index + 1}`, description: 'Video description' };
+      return getVideoContent(index);
     }
   };
 
@@ -359,10 +358,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [pdfError, setPdfError] = useState<boolean>(false);
-
-  // Get product family info
-  const familyInfo = getProductFamilyInfo(productFamily);
-  const familyMedia = getFamilyMedia(productFamily);
 
   useEffect(() => {
     if (isOpen && productName && productFamily) {
@@ -497,15 +492,13 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
             updatePresentationIndex(groupIndex, newIndex);
           };
 
-          const presentationData = familyMedia.presentations[groupIndex];
-
           return (
             <div key={groupIndex} className="space-y-3">
               <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                 <h4 className="text-lg font-semibold text-[#ffb81c] capitalize mb-2">
                   {presentationGroup.name}
                 </h4>
-                <p className="text-sm text-gray-300 mb-4">{presentationData?.description || 'Presentation description'}</p>
+                <p className="text-sm text-gray-300 mb-4">{getPresentationDescription(groupIndex)}</p>
                 <div className="relative">
                   <img
                     src={currentSlide.path}
@@ -589,8 +582,6 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           // Check if this is a PDF file
           const isPDF = currentPage.path.toLowerCase().endsWith('.pdf');
 
-          const documentData = familyMedia.documents[groupIndex];
-
           return (
             <div key={groupIndex} className="space-y-3">
               <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
@@ -610,7 +601,7 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
                     {documentGroup.name}
                   </h4>
                 </div>
-                <p className="text-sm text-gray-300 mb-4">{documentData?.description || 'Document description'}</p>
+                <p className="text-sm text-gray-300 mb-4">{getDocumentDescription(groupIndex)}</p>
                 <div className="relative">
                   {isPDF ? (
                     <div className="bg-white rounded-lg p-2">
@@ -782,64 +773,61 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
     if (activeTab === 'images') {
       return (
         <div className="space-y-4">
-          {content.images.map((image, index) => {
-            const imageData = familyMedia.images[index];
-            return (
-              <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-                <div className="flex items-center space-x-3 mb-2">
-                  {(productFamily === 'ai-core' || productFamily === 'energy-solutions') && (
-                    <img
-                      src={getAICoreLogoForIndex(index)}
-                      alt={`${productFamily} Product`}
-                      className="object-contain"
-                      style={{ width: '192px', height: '192px' }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  )}
-                  {productFamily === 'netcomm' && (
-                    <img
-                      src={getNetCommLogoForIndex(index)}
-                      alt="NetComm Product"
-                      className="object-contain"
-                      style={{ width: '192px', height: '192px' }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  )}
-                  {productFamily === 'provetech' && (
-                    <img
-                      src={getPROVEtechLogoForIndex(index)}
-                      alt="PROVEtech Product"
-                      className="object-contain"
-                      style={{ width: '192px', height: '192px' }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  )}
-                </div>
-                <p className="text-sm text-gray-300 mb-4">{imageData?.description || 'Image description'}</p>
-                <div className="relative">
+          {content.images.map((image, index) => (
+            <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-2">
+                {(productFamily === 'ai-core' || productFamily === 'energy-solutions') && (
                   <img
-                    src={image.path}
-                    alt={image.name}
-                    className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg"
-                    style={{ aspectRatio: 'auto' }}
+                    src={getAICoreLogoForIndex(index)}
+                    alt={`${productFamily} Product`}
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = productImage;
+                      target.style.display = 'none';
                     }}
                   />
-                </div>
+                )}
+                {productFamily === 'netcomm' && (
+                  <img
+                    src={getNetCommLogoForIndex(index)}
+                    alt="NetComm Product"
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                )}
+                {productFamily === 'provetech' && (
+                  <img
+                    src={getPROVEtechLogoForIndex(index)}
+                    alt="PROVEtech Product"
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                )}
               </div>
-            );
-          })}
+              <p className="text-sm text-gray-300 mb-4">{getImageContent(index).description}</p>
+              <div className="relative">
+                <img
+                  src={image.path}
+                  alt={image.name}
+                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg"
+                  style={{ aspectRatio: 'auto' }}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = productImage;
+                  }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       );
     }
@@ -848,94 +836,91 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
     if (activeTab === 'videos') {
       return (
         <div className="space-y-4">
-          {content.videos.map((video, index) => {
-            const videoData = familyMedia.videos[index];
-            return (
-              <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
-                <div className="flex items-center space-x-3 mb-2">
-                  {productFamily === 'provetech' && (
-                    <img
-                      src="./products/provetech/main/0-logos/logo1.png"
-                      alt="PROVEtech"
-                      className="w-8 h-8 object-contain"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  )}
-                  {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm') && (
-                    <img
-                      src={getAICoreLogoForIndex(index)}
-                      alt={`${productFamily} Product`}
-                      className="object-contain"
-                      style={{ width: '192px', height: '192px' }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                      }}
-                    />
-                  )}
-                  <h4 className="text-lg font-semibold text-[#ffb81c]">{videoData?.title || video.name}</h4>
-                </div>
-                <p className="text-sm text-gray-300 mb-4">{videoData?.description || 'Video description'}</p>
-                <div className="relative">
-                  <video
-                    src={video.path}
-                    controls={false}
-                    className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
-                    style={{ aspectRatio: 'auto' }}
-                    onClick={() => {
-                      setSelectedMediaIndex(index);
-                      toggleFullscreen();
-                    }}
+          {content.videos.map((video, index) => (
+            <div key={index} className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-2">
+                {productFamily === 'provetech' && (
+                  <img
+                    src="./products/provetech/main/0-logos/logo1.png"
+                    alt="PROVEtech"
+                    className="w-8 h-8 object-contain"
                     onError={(e) => {
-                      const target = e.target as HTMLVideoElement;
-                      // Hide the video element and show a fallback message
+                      const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
-                      
-                      // Check if fallback already exists to prevent duplicates
-                      const existingFallback = target.parentNode?.querySelector('.video-error-fallback');
-                      if (!existingFallback) {
-                        const fallback = document.createElement('div');
-                        fallback.className = 'video-error-fallback flex items-center justify-center min-h-48 bg-[#001f33]/30 border border-white/10 rounded-lg';
-                        fallback.innerHTML = '<p class="text-gray-400">Video not available</p>';
-                        target.parentNode?.appendChild(fallback);
-                      }
                     }}
                   />
-                  {/* Play Icon Overlay */}
-                  <div 
-                    className="absolute inset-0 flex items-center justify-center cursor-pointer"
-                    style={{ paddingBottom: '20px' }}
-                    onClick={() => {
-                      setSelectedMediaIndex(index);
-                      toggleFullscreen();
+                )}
+                {(productFamily === 'ai-core' || productFamily === 'energy-solutions' || productFamily === 'netcomm') && (
+                  <img
+                    src={getAICoreLogoForIndex(index)}
+                    alt={`${productFamily} Product`}
+                    className="object-contain"
+                    style={{ width: '192px', height: '192px' }}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
                     }}
-                  >
-                    <Play 
-                      size={32} 
-                      className="text-white ml-1 drop-shadow-lg" 
-                      fill="white"
-                      style={{ 
-                        filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8))'
-                      }}
-                    />
-                  </div>
-                  <button
-                    onClick={() => {
-                      setSelectedMediaIndex(index);
-                      toggleFullscreen();
-                    }}
-                    className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
-                    title="View fullscreen"
-                  >
-                    <Maximize2 size={16} color="white" />
-                  </button>
-                </div>
+                  />
+                )}
+                <h4 className="text-lg font-semibold text-[#ffb81c]">{getVideoContent(index).title}</h4>
               </div>
-            );
-          })}
+              <p className="text-sm text-gray-300 mb-4">{getVideoContent(index).description}</p>
+              <div className="relative">
+                <video
+                  src={video.path}
+                  controls={false}
+                  className="w-full max-h-80 object-contain bg-[#001f33]/30 border border-white/10 rounded-lg cursor-pointer"
+                  style={{ aspectRatio: 'auto' }}
+                  onClick={() => {
+                    setSelectedMediaIndex(index);
+                    toggleFullscreen();
+                  }}
+                  onError={(e) => {
+                    const target = e.target as HTMLVideoElement;
+                    // Hide the video element and show a fallback message
+                    target.style.display = 'none';
+                    
+                    // Check if fallback already exists to prevent duplicates
+                    const existingFallback = target.parentNode?.querySelector('.video-error-fallback');
+                    if (!existingFallback) {
+                      const fallback = document.createElement('div');
+                      fallback.className = 'video-error-fallback flex items-center justify-center min-h-48 bg-[#001f33]/30 border border-white/10 rounded-lg';
+                      fallback.innerHTML = '<p class="text-gray-400">Video not available</p>';
+                      target.parentNode?.appendChild(fallback);
+                    }
+                  }}
+                />
+                {/* Play Icon Overlay */}
+                <div 
+                  className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                  style={{ paddingBottom: '20px' }}
+                  onClick={() => {
+                    setSelectedMediaIndex(index);
+                    toggleFullscreen();
+                  }}
+                >
+                  <Play 
+                    size={32} 
+                    className="text-white ml-1 drop-shadow-lg" 
+                    fill="white"
+                    style={{ 
+                      filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8))'
+                    }}
+                  />
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedMediaIndex(index);
+                    toggleFullscreen();
+                  }}
+                  className="absolute top-2 right-2 w-8 h-8 backdrop-blur-md bg-[#001f33]/90 border border-white/20 rounded-sm flex items-center justify-center shadow-md hover:bg-[#001f33]/95"
+                  title="View fullscreen"
+                >
+                  <Maximize2 size={16} color="white" />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       );
     }
@@ -1000,12 +985,12 @@ export function ProductModal({ isOpen, onClose, productName, productFamily, prod
           </button>
           <div>
             <img
-              src={familyInfo.logoPath}
+              src={productImage}
               alt={familyDisplayNames[productFamily] || productFamily}
              className="h-6 object-contain mb-2"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-               target.src = contentConfig.ui.fallbackLogoPath;
+               target.src = './images/logo.png';
               }}
             />
             <p className="text-lg text-gray-300">{productName}</p>

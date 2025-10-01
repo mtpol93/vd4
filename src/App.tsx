@@ -18,37 +18,37 @@ const productFamilies = [
   {
     id: 'akkodis-main',
     name: getProductFamilyInfo('akkodis-main').name,
-    image: getProductFamilyInfo('akkodis-main').logoPath,
-    description: contentConfig.ui.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('akkodis-main').name, image: getProductFamilyInfo('akkodis-main').logoPath }
+    image: './images/Logo-White-Akkodis.png',
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('akkodis-main').name, image: './images/Logo-White-Akkodis.png' }
   },
   {
     id: 'ai-core',
     name: getProductFamilyInfo('ai-core').name,
-    image: getProductFamilyInfo('ai-core').logoPath,
-    description: contentConfig.ui.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('ai-core').name, image: getProductFamilyInfo('ai-core').logoPath }
+    image: './products/ai-core/AI-Core Platform copy copy.png',
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('ai-core').name, image: './products/ai-core/AI-Core Platform copy copy.png' }
   },
   {
     id: 'netcomm',
     name: getProductFamilyInfo('netcomm').name,
-    image: getProductFamilyInfo('netcomm').logoPath,
-    description: contentConfig.ui.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('netcomm').name, image: getProductFamilyInfo('netcomm').logoPath }
+    image: './products/netcomm/netcomm-validation copy.png',
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('netcomm').name, image: './products/netcomm/netcomm-validation copy.png' }
   },
   {
     id: 'provetech',
     name: getProductFamilyInfo('provetech').name,
-    image: getProductFamilyInfo('provetech').logoPath,
-    description: contentConfig.ui.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('provetech').name, image: getProductFamilyInfo('provetech').logoPath }
+    image: './products/provetech/PROVEtech.png',
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('provetech').name, image: './products/provetech/PROVEtech.png' }
   },
   {
     id: 'energy-solutions',
     name: getProductFamilyInfo('energy-solutions').name,
-    image: getProductFamilyInfo('energy-solutions').logoPath,
-    description: contentConfig.ui.contactMessage,
-    mainProduct: { name: getProductFamilyInfo('energy-solutions').name, image: getProductFamilyInfo('energy-solutions').logoPath }
+    image: './products/energy-solutions/Energy-Solutions.png',
+    description: contentConfig.general.contactMessage,
+    mainProduct: { name: getProductFamilyInfo('energy-solutions').name, image: './products/energy-solutions/Energy-Solutions.png' }
   }
 ];
 
@@ -378,7 +378,7 @@ function App() {
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                   </div>
@@ -405,7 +405,7 @@ function App() {
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                   </div>
@@ -432,7 +432,7 @@ function App() {
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                   </div>
@@ -452,24 +452,24 @@ function App() {
                 <div className="h-20 overflow-hidden flex items-center justify-center px-2">
                   <div className="flex items-center space-x-1 p-1">
                     <img
-                      src={getProductFamilyInfo('ai-core').logoPath}
+                      src="./products/ai-core/AI-Core Platform copy copy.png"
                       alt="AI-Core"
                       className="w-8 h-8 object-contain"
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                     <span className="text-white text-xs font-bold">+</span>
                     <img
-                      src={getProductFamilyInfo('provetech').logoPath}
+                      src="./products/provetech/PROVEtech.png"
                       alt="PROVEtech"
                       className="w-8 h-8 object-contain"
                       draggable={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                   </div>
@@ -509,11 +509,11 @@ function App() {
               windTunnelAnimating ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
-            title={windTunnelAnimating ? 'Animation in progress...' : (showWindTunnel ? `Hide ${contentConfig.ui.buttonLabels.windTunnel}` : `Show ${contentConfig.ui.buttonLabels.windTunnel}`)}
+            title={windTunnelAnimating ? 'Animation in progress...' : (showWindTunnel ? 'Hide wind tunnel' : 'Show wind tunnel')}
             disabled={windTunnelAnimating}
           >
             <Wind size={16} className={showWindTunnel ? 'text-[#001f33]' : 'text-white'} />
-            <span className={`text-sm font-medium ${showWindTunnel ? 'text-[#001f33]' : 'text-white'}`}>{contentConfig.ui.buttonLabels.windTunnel}</span>
+            <span className={`text-sm font-medium ${showWindTunnel ? 'text-[#001f33]' : 'text-white'}`}>Wind Tunnel</span>
           </button>
 
           {/* Contact Us Button */}
@@ -527,7 +527,7 @@ function App() {
             title="Contact Akkodis team"
           >
             <Mail size={16} className="text-[#001f33]" />
-            <span className="text-sm font-medium text-[#001f33]">{contentConfig.ui.buttonLabels.contactUs}</span>
+            <span className="text-sm font-medium text-[#001f33]">Contact Us</span>
           </button>
         </div>
 
@@ -544,7 +544,7 @@ function App() {
               </button>
               <div className="flex flex-col items-center justify-center space-y-4">
                 <img
-                  src={getProductFamilyInfo('akkodis-main').logoPath}
+                  src="/images/Logo-White-Akkodis.png"
                   alt="Contact Us Logo"
                   className="w-32 h-24 object-contain"
                   onError={(e) => {
@@ -552,9 +552,9 @@ function App() {
                     target.style.display = 'none';
                   }}
                 />
-                <h3 className="text-xl font-bold text-white -mt-4">{contentConfig.ui.buttonLabels.contactUs}</h3>
+                <h3 className="text-xl font-bold text-white -mt-4">Contact Us</h3>
                 <img
-                  src={contentConfig.ui.qrCodePath}
+                  src="/images/qrcode.png"
                   alt="Contact QR Code"
                   className="w-40 h-40 object-contain -mt-2"
                   onError={(e) => {
@@ -563,7 +563,7 @@ function App() {
                   }}
                 />
                 <p className="text-gray-300 text-sm -mt-2">
-                  or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.ui.emailAddress}</span>
+                  or email us at <span style={{ color: '#ffb81c' }}>marketing-products@akkodis.com</span>
                 </p>
               </div>
             </div>
@@ -585,22 +585,22 @@ function App() {
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
                   <img
-                    src={getProductFamilyInfo('ai-core').logoPath}
+                    src="./products/ai-core/AI-Core Platform copy copy.png"
                     alt="AI-Core"
                     className="w-12 h-12 object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = contentConfig.ui.fallbackLogoPath;
+                      target.src = './images/logo.png';
                     }}
                   />
                   <span className="text-white text-xl font-bold">+</span>
                   <img
-                    src={getProductFamilyInfo('provetech').logoPath}
+                    src="./products/provetech/PROVEtech.png"
                     alt="PROVEtech"
                     className="w-12 h-12 object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = contentConfig.ui.fallbackLogoPath;
+                      target.src = './images/logo.png';
                     }}
                   />
                 </div>
@@ -761,12 +761,12 @@ function App() {
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <img
-                      src={getProductFamilyInfo('ai-core').logoPath}
+                      src="./products/ai-core/AI-Core Platform copy copy.png"
                       alt="AI-Core"
                       className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                     <h3 className="text-lg font-semibold text-[#ffb81c]">AI-Core Platform</h3>
@@ -789,12 +789,12 @@ function App() {
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <img
-                      src={getProductFamilyInfo('provetech').logoPath}
+                      src="./products/provetech/PROVEtech.png"
                       alt="PROVEtech"
                       className="w-8 h-8 object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = contentConfig.ui.fallbackLogoPath;
+                        target.src = './images/logo.png';
                       }}
                     />
                     <h3 className="text-lg font-semibold text-[#ffb81c]">PROVEtech Tool Suite</h3>
@@ -844,11 +844,11 @@ function App() {
                 <div className="bg-[#001f33]/70 border border-white/20 rounded-lg p-4 text-center">
                   <h3 className="text-lg font-semibold text-white mb-3">Interested in This Solution?</h3>
                   <p className="text-gray-300 text-sm mb-4">
-                    {contentConfig.ui.contactMessage}
+                    {contentConfig.general.contactMessage}
                   </p>
                   <div className="flex flex-col items-center space-y-3">
                     <img
-                      src={contentConfig.ui.qrCodePath}
+                      src="./images/qrcode.png"
                       alt="Contact QR Code"
                      className="w-20 h-20 object-contain mb-2"
                       onError={(e) => {
@@ -857,7 +857,7 @@ function App() {
                       }}
                     />
                    <p className="text-center text-sm mt-2">
-                      or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.ui.emailAddress}</span>
+                      or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span>
                     </p>
                   </div>
                 </div>
@@ -884,7 +884,7 @@ function App() {
                     draggable={false}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = contentConfig.ui.fallbackLogoPath;
+                      target.src = './images/logo.png';
                     }}
                   />
                 </div>
@@ -894,10 +894,10 @@ function App() {
                 <p className="text-sm text-gray-300">Product Family</p>
               </div>
               <div className="text-white text-sm leading-relaxed mb-4">
-                <p className="mb-3">{contentConfig.ui.contactMessage}</p>
+                <p className="mb-3">{contentConfig.general.contactMessage}</p>
                 <div className="flex flex-col items-center space-y-3">
                   <img
-                    src={contentConfig.ui.qrCodePath}
+                    src="./images/qrcode.png"
                     alt="Contact QR Code"
                    className="w-24 h-24 object-contain mb-2"
                     onError={(e) => {
@@ -905,7 +905,7 @@ function App() {
                       target.style.display = 'none';
                     }}
                   />
-                 <p className="text-center mt-2">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.ui.emailAddress}</span></p>
+                 <p className="text-center mt-2">or email us at <span style={{ color: '#ffb81c' }}>{contentConfig.general.emailAddress}</span></p>
                 </div>
               </div>
               <div className="text-center">
@@ -913,7 +913,7 @@ function App() {
                   onClick={handleReset}
                   className="bg-[#ffb81c] text-[#001f33] px-4 py-2 rounded-lg font-medium hover:bg-[#ffb81c]/90 transition-colors"
                 >
-                  {contentConfig.ui.buttonLabels.close}
+                  Close
                 </button>
               </div>
             </div>
